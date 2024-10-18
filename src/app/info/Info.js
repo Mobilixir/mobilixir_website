@@ -161,4 +161,9 @@ export const info = {
       isWebsite: true
     }
   ],
+  landingPage:{
+    title:"Innovative Mobile & Web App Development Services",
+    subtitle:"Building cutting-edge digital solutions with robust technologies for a seamless user experience.",
+    ctaButton:"Get a Free Consultation"
+  }
 };
