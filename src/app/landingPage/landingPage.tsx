@@ -3,8 +3,8 @@ import { info } from "../info/Info";
 
 function LandingPage() {
 	return (
-		<div className="flex flex-grow flex-col">
-			<div className="h-[22vh] flex-row flex justify-between p-8 max-lg:mb-28">
+		<div className="flex flex-grow flex-col container mx-auto">
+			<div className="h-[22vh] flex-row flex justify-between py-8 max-lg:mb-28">
 				<div className=" w-[120vh] flex-col">
 					<p className="text-black font-generalSansMedium text-2xl mt-4">
 						{info.landingPage.title}
