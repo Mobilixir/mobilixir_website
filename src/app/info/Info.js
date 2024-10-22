@@ -165,33 +165,43 @@ export const info = {
 		},
 	],
 	landingPage: {
-		title: "Innovative Mobile & Web App Development Services",
+		title: "Transforming Ideas into Powerful Mobile and Web Solutions",
 		subtitle:
-			"Building cutting-edge digital solutions with robust technologies for a seamless user experience.",
+			"Innovative software consultancy specializing in cutting-edge mobile and web development",
 		ctaButton: "Get a Free Consultation",
 		about:
-			"Innovative software consultancy specializing in cutting-edge mobile and web development",
+			"Leveraging the latest technologies to build robust, scalable solutions",
 		tech: [
 			{
 				title: "Mobile App Development",
 				stack: ["iOS app development", "React Native", "LiveView Native"],
-				image: "/mobile.svg"
+				image: "/mobile.svg",
 			},
 			{
 				title: "Web App Development",
 				stack: ["Next.js", "React.js", "Phoenix Framework"],
-				image: "/web.svg"
+				image: "/web.svg",
 			},
 			{
 				title: "Backend Development",
 				stack: ["Node.js", "Spring Boot", "Elixir"],
-				image: "/backend.svg"
+				image: "/backend.svg",
 			},
 			{
 				title: "CI/CD Automation",
 				stack: ["Fastlane", "CircleCI", "Bitrise"],
-				image: "/cicd.svg"
+				image: "/cicd.svg",
 			},
-		]
+		],
+		whychooseus: {
+			title: "Why Choose Us?",
+			reasons: [
+				"Expertise in both mobile and web development",
+				"Cutting-edge technology stack",
+				"Personalized, agile development approach",
+				"Commitment to quality and innovation",
+				"Scalability & Performance",
+			],
+		},
 	},
 };
