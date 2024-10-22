@@ -52,7 +52,7 @@ export default function RootLayout({
 				<Navigation />
 				<div
 					id="home"
-					className="m-8 min-h-screen flex flex-col w-auto bg-white"
+					className="min-h-screen flex flex-col w-auto bg-white"
 				>
 					{children}
 				</div>
