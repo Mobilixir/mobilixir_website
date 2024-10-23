@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navigation from "./components/navigation";
+import Footer from "./components/navigation/footer/Footer";
 
 const faktumRegular = localFont({
 	src: "./fonts/Faktum_Regular.otf",
@@ -56,6 +57,7 @@ export default function RootLayout({
 				>
 					{children}
 				</div>
+				<Footer />
 			</body>
 		</html>
 	);
