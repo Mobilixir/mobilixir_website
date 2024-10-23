@@ -202,6 +202,7 @@ export const info = {
 				"Commitment to quality and innovation",
 				"Scalability & Performance",
 			],
+			ctatitle:"Ready to bring your idea to life? Let's talk!"
 		},
 	},
 };
