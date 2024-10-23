@@ -17,7 +17,7 @@ of what each of the values mean.
 export const info = {
 	nav_menu: [
 		{
-			link: "home",
+			link: "/",
 			title: "Home",
 		},
 		{
