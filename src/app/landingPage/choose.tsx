@@ -1,7 +1,10 @@
 import { info } from "../info/Info";
 function ChooseUs() {
 	return (
-		<div className="h-screen w-auto container mx-auto justify-center items-center py-8 max-lg:mt-10">
+		<div
+			id="why-choose-us"
+			className="h-screen w-auto container flex flex-col mx-auto justify-center items-center"
+		>
 			<h1 className="text-5xl font-bold text-black">
 				{info.landingPage.whychooseus.title}
 			</h1>

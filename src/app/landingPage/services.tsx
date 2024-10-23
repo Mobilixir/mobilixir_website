@@ -5,7 +5,7 @@ function Services() {
 	return (
 		<div
 			id="about"
-			className="h-screen w-auto container mx-auto justify-center items-center "
+			className="w-auto container mx-auto justify-center items-center basis-1"
 		>
 			<div className="flex flex-grow flex-col py-8 max-lg:mt-10">
 				<h1 className="mt-8 font-faktumBold-900 text-4xl text-black">
@@ -14,7 +14,7 @@ function Services() {
 			</div>
 			<div
 				id="services"
-				className="w-full h-auto bg-white grid grid-cols-4 max-sm:grid-cols-1 max-lg:grid-cols-2 justify-evenly items-center gap-8 max-lg:flex-col grow basis-1 mt-10"
+				className="w-full bg-white grid grid-cols-4 max-sm:grid-cols-1 max-lg:grid-cols-2 justify-evenly items-center gap-8 max-lg:flex-col max-sm:flex-col max-lg:grow max-sm:grow basis-1 mt-10"
 			>
 				{info.landingPage.tech.map((tech) => {
 					return (
