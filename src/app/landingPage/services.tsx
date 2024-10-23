@@ -4,7 +4,6 @@ import { info } from "../info/Info";
 function Services() {
 	return (
 		<div
-			id="about"
 			className="w-auto container mx-auto justify-center items-center basis-1"
 		>
 			<div className="flex flex-grow flex-col py-8 max-lg:mt-10">
@@ -13,7 +12,6 @@ function Services() {
 				</h1>
 			</div>
 			<div
-				id="services"
 				className="w-full bg-white grid grid-cols-4 max-sm:grid-cols-1 max-lg:grid-cols-2 justify-evenly items-center gap-8 max-lg:flex-col max-sm:flex-col max-lg:grow max-sm:grow basis-1 mt-10"
 			>
 				{info.landingPage.tech.map((tech) => {
