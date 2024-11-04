@@ -218,4 +218,45 @@ export const info = {
       "Emphasis on creating value for clients",
     ],
   },
+  services: {
+    title: "Our Services",
+    servicesList: [
+      {
+        title: "Mobile App Development",
+        description:
+          "Crafting intuitive and feature-rich mobile experiences using Swift, SwiftUI, and React Native. Our expertise spans across native and cross-platform app development, ensuring seamless performance and user engagement.",
+        image: "/mobile.svg",
+      },
+      {
+        title: "Web App Development",
+        description:
+          "Building dynamic, high-performing web applications with technologies like React.js, Next.js, and the Phoenix Framework, focusing on speed, scalability, and user experience.",
+        image: "/web.svg",
+      },
+      {
+        title: "Backend Development",
+        description:
+          "Creating robust server-side solutions using Node.js and Elixir for scalable and reliable applications, complete with RESTful APIs and real-time features.",
+        image: "/backend.svg",
+      },
+      {
+        title: "UI/UX Design",
+        description:
+          "Designing user-centric interfaces that combine beauty and functionality using Tailwind CSS. We create visually appealing and easy-to-navigate applications.",
+        image: "/uiux.svg",
+      },
+      {
+        title: "CI/CD Automation",
+        description:
+          "Automating development pipelines using Fastlane, CircleCI, and Bitrise to ensure rapid, reliable deployments.",
+        image: "/cicd.svg",
+      },
+      {
+        title: "Custom Software Solutions",
+        description:
+          "Tailored solutions for unique business needs with Integration services and Scalable architecture design",
+        image:"/software_development.svg"
+      }
+    ],
+  },
 };
