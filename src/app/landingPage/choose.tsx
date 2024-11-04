@@ -2,10 +2,7 @@ import Image from "next/image";
 import { info } from "../info/Info";
 function ChooseUs() {
 	return (
-		<div
-			id="why-choose-us"
-			className="container mx-auto justify-center items-center basis-1 mt-10"
-		>
+		<div className="container mx-auto justify-center items-center basis-1 mt-10">
 			<h1 className="text-5xl font-bold text-black justify-center flex">
 				{info.landingPage.whychooseus.title}
 			</h1>
