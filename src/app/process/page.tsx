@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { info } from "../info/Info";
 function Process() {
   return (
