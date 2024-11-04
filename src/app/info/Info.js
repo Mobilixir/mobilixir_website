@@ -285,4 +285,8 @@ export const info = {
       }
     ]
   },
+  casestudies:{
+    title: "Blog",
+    baseurl: "https://dev.to/api/articles?username=rushikeshpandit"
+  }
 };
