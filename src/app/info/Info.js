@@ -259,4 +259,33 @@ export const info = {
       }
     ],
   },
+  process:{
+    title: "Our Process",
+    processList:[
+      {
+        title:"Discovery",
+        description:"Understanding your business requirements and identifying the best solutions."
+      },
+      {
+        title:"Design",
+        description:"Creating user-friendly designs that match your brand's style."
+      },
+      {
+        title:"Development",
+        description:"Building the application using agile development practices, ensuring quality and timely delivery."
+      },
+      {
+        title:"Testing",
+        description:"Conducting rigorous testing to ensure the app is bug-free and ready for launch."
+      },
+      {
+        title:"Launch",
+        description:"Deploying the app to the relevant platforms and making it live for users."
+      },
+      {
+        title:"Support",
+        description:"Providing post-launch support to handle any issues and implement future enhancements."
+      },
+    ]
+  }
 };
