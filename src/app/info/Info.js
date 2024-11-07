@@ -179,8 +179,12 @@ export const info = {
     title: "Our Techstack",
     stacks:[
       {
-        title: "Frontend",
+        title: "Full Stack",
         lists:[
+          {
+            name: "Wasp Lang",
+            image: "/wasp.svg",
+          },
           {
             name: "Next.js",
             image: "/nextjs.svg",
@@ -188,9 +192,14 @@ export const info = {
           {
             name: "Phoenix Framework",
             image: "/phoenix.svg",
-          },
+          }
+        ]
+      },
+      {
+        title: "Frontend",
+        lists:[
           {
-            name: "React",
+            name: "React.js",
             image: "/react.svg",
           },
         ]
