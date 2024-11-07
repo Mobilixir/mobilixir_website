@@ -3,8 +3,7 @@ import path from "path";
 import fs from "fs/promises";
 
 // Helper function to get the path to data.json
-const getDataFilePath = () =>
-	path.join(process.cwd(), "public", "inquiries.json");
+const getDataFilePath = () => path.join(process.cwd(), "inquiries.json");
 
 // Helper function to read records from data.json
 async function readRecords() {
