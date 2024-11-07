@@ -66,7 +66,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body
-				className={`bg-white ${faktumRegular.variable} ${faktumBold.variable} ${generalSansBold.variable} ${generalSansLight.variable} ${generalSansMedium.variable} ${generalSansRegular.variable} antialiased`}
+				className={`bg-white ${faktumRegular.variable} ${faktumBold.variable} ${generalSansBold.variable} ${generalSansLight.variable} ${generalSansMedium.variable} ${generalSansRegular.variable}`}
 			>
 				<Navigation />
 				<div id="home" className="min-h-screen flex flex-col w-auto bg-white">

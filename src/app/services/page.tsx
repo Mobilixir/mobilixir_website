@@ -3,7 +3,7 @@ import { info } from "../info/Info";
 function ServicesPage() {
   return (
     <div className="container mx-auto justify-center items-center basis-1 mt-10 animate-slidein opacity-0 [--slidein-delay:700ms]">
-      <h1 className="font-bold text-black font-faktumBold-900 text-5xl  flex">
+      <h1 className="font-bold text-black font-faktumBold-900 text-3xl  flex">
         {info.services.title}
       </h1>
       <div className=" mt-10 grid grid-cols-3 max-sm:grid-cols-1 max-lg:grid-cols-2 justify-between gap-4">

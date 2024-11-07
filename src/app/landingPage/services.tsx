@@ -7,7 +7,7 @@ function Services() {
 			className="w-auto container mx-auto justify-center items-center basis-1"
 		>
 			<div className="flex flex-grow flex-col py-8 max-lg:mt-10">
-				<h1 className="mt-8 font-faktumBold-900 text-4xl text-black">
+				<h1 className="mt-8 font-faktumBold-900 text-3xl text-black">
 					{info.landingPage.about}
 				</h1>
 			</div>
@@ -27,7 +27,7 @@ function Services() {
 								height={0}
 								className="aspect-auto object-cover h-14 w-auto mb-4"
 							/>
-							<p className="text-black font-faktumBold font-bold text-3xl my-4">
+							<p className="text-black font-faktumBold font-bold text-xl my-4">
 								{tech.title}
 							</p>
 							<div className="h-auto">

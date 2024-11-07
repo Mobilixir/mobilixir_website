@@ -5,17 +5,17 @@ function AboutUs() {
     <div className="container mx-auto justify-center items-center basis-1 mt-10 animate-slidein opacity-0 [--slidein-delay:700ms]">
       <div className=" mt-10 flex flex-row justify-evenly">
         <div className=" w-[120vh] flex-col">
-          <h1 className="font-bold text-black font-faktumBold-900 text-5xl  flex">
+          <h1 className="font-bold text-black font-faktumBold-900 text-3xl flex">
             {info.aboutus.missionTitle}
           </h1>
-          <h3 className="text-4xl text-black  flex mt-10">
+          <h3 className="text-2xl text-black  flex mt-10">
             {info.aboutus.mission}
           </h3>
 
-          <h1 className="font-faktumBold font-bold text-5xl  text-black  flex mt-10">
+          <h1 className="font-faktumBold font-bold text-3xl  text-black  flex mt-10">
             {info.aboutus.storyTitle}
           </h1>
-          <h3 className="text-4xl text-black  flex mt-10">
+          <h3 className="text-2xl text-black  flex mt-10">
             {info.aboutus.story}
           </h3>
         </div>
@@ -36,7 +36,7 @@ function AboutUs() {
             {info.aboutus.approach.map((approach) => {
               return (
                 <li
-                  className="text-black text-4xl mt-4 animate-slidein opacity-0 [--slidein-delay:700ms]"
+                  className="text-black text-2xl mt-4 animate-slidein opacity-0 [--slidein-delay:700ms]"
                   key={approach}
                 >
                   {" "}

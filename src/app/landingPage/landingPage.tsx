@@ -9,14 +9,14 @@ function LandingPage() {
           <p className="text-black font-generalSansMedium text-2xl mt-4">
             {info.landingPage.title}
           </p>
-          <p className="font-faktumBold-900 text-4xl mt-4 text-black max-lg:mt-10">
+          <p className="font-faktumBold-900 text-3xl mt-4 text-black max-lg:mt-10">
             {info.landingPage.subtitle}
           </p>
         </div>
         <div className=" w-[40vh] justify-center items-center flex">
           <button
             type="button"
-            className="min-lg:h-14 p-4 rounded-full bg-black"
+            className="min-lg:h-14 p-4 rounded-full bg-black text-white"
           >
             {info.landingPage.ctaButton}
           </button>

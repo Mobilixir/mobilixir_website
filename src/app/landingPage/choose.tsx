@@ -3,7 +3,7 @@ import { info } from "../info/Info";
 function ChooseUs() {
 	return (
 		<div className="container mx-auto justify-center items-center basis-1 mt-10">
-			<h1 className="text-5xl font-bold text-black justify-center flex">
+			<h1 className="text-3xl font-bold text-black justify-center flex">
 				{info.landingPage.whychooseus.title}
 			</h1>
 			<div className=" mt-10 flex flex-row justify-between w-auto">
@@ -12,7 +12,7 @@ function ChooseUs() {
 						{info.landingPage.whychooseus.reasons.map((item) => {
 							return (
 								<li
-									className="text-black text-3xl mt-4 animate-slidein opacity-0 [--slidein-delay:700ms]"
+									className="text-black text-2xl mt-4 animate-slidein opacity-0 [--slidein-delay:700ms]"
 									key={item}
 								>
 									{" "}
@@ -33,12 +33,12 @@ function ChooseUs() {
 				</div>
 			</div>
 			<div className="flex-row flex justify-between items-center h-40 mt-16">
-				<p className="font-faktumBold-900 text-4xl max-lg:text-2xl text-black">
+				<p className="font-faktumBold-900 text-3xl max-lg:text-2xl text-black">
 					{info.landingPage.whychooseus.ctatitle}
 				</p>
 				<button
 					type="button"
-					className="min-lg:h-14 h-20 p-4 rounded-full bg-black"
+					className="min-lg:h-14 h-20 p-4 rounded-full bg-black text-white"
 				>
 					{info.landingPage.ctaButton}
 				</button>

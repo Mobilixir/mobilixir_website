@@ -4,7 +4,7 @@ import { Menu } from "./Menu";
 export const Navbar = ({ toggle }: { toggle: () => void }) => {
 	return (
 		<>
-			<div className="w-full h-20 bg-white sticky top-0 ">
+			<div className="w-full h-20 bg-white sticky top-0 z-10 ">
 				<div className=" mx-14  h-full">
 					<div className="flex justify-between items-center h-full  w-auto">
 						<Logo />
