@@ -5,28 +5,26 @@ import { FormData } from "../contactus/page";
 import { getData } from "../../../utils/send-email";
 import { DataTable } from "@/components/ui/data-table";
 import { ColumnDef } from "@tanstack/react-table";
-
-export const columns: ColumnDef<FormData>[] = [
-	{
-		accessorKey: "name",
-		header: "Name",
-	},
-	{
-		accessorKey: "email",
-		header: "Email",
-	},
-	{
-		accessorKey: "message",
-		header: "Message",
-	},
-];
-
 function Enquiries() {
 	const [records, setRecords] = useState<FormData[]>([]);
+	const columns: ColumnDef<FormData>[] = [
+		{
+			accessorKey: "name",
+			header: "Name",
+		},
+		{
+			accessorKey: "email",
+			header: "Email",
+		},
+		{
+			accessorKey: "message",
+			header: "Message",
+		},
+	];
 
 	useEffect(() => {
 		async function fetchData() {
-			let records = await getData();
+			const records = await getData();
 			setRecords(records);
 		}
 

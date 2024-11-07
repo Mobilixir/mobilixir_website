@@ -1,11 +1,11 @@
 import { info } from "@/app/info/Info";
 import Link from "next/link";
 export const Menu = () => {
-	const scrollToSection = (id: string) => {
-		const element = document.getElementById(id);
-		if (!element) return;
-		window.scroll({ top: element.offsetTop - 20, behavior: "smooth" });
-	};
+	// const scrollToSection = (id: string) => {
+	// 	const element = document.getElementById(id);
+	// 	if (!element) return;
+	// 	window.scroll({ top: element.offsetTop - 20, behavior: "smooth" });
+	// };
 
 	return (
 		<>
