@@ -1,13 +1,24 @@
 import { NextResponse } from "next/server";
 import path from "path";
 import fs from "fs/promises";
+import { existsSync } from "fs";
 
 // Helper function to get the path to data.json
-const getDataFilePath = () => path.join("inquiries.json");
+// Helper function to get the path to data.json
+const getDataFilePath = () => path.join(process.cwd(), "public", "data.json");
+
+// Helper function to initialize the JSON file if it doesn't exist
+async function initializeJsonFile() {
+	const filePath = getDataFilePath();
+	if (!existsSync(filePath)) {
+		await fs.writeFile(filePath, JSON.stringify([]));
+	}
+}
 
 // Helper function to read records from data.json
 async function readRecords() {
 	const filePath = getDataFilePath();
+	await initializeJsonFile(); // Ensure the file exists
 	const data = await fs.readFile(filePath, "utf8");
 	return JSON.parse(data);
 }
