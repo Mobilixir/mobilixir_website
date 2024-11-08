@@ -19,7 +19,7 @@ function Contact() {
 	}
 
 	return (
-		<div className="container mx-auto justify-center items-center basis-1 mt-10 animate-slidein opacity-0 [--slidein-delay:700ms]">
+		<div className="container mx-auto justify-center items-center basis-1 mt-10 ">
 			<h1 className="font-bold text-black font-faktumBold-900 text-3xl  flex">
 				Contact Us
 			</h1>

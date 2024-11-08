@@ -11,10 +11,7 @@ function ChooseUs() {
 					<ul>
 						{info.landingPage.whychooseus.reasons.map((item) => {
 							return (
-								<li
-									className="text-black text-2xl mt-4 animate-slidein opacity-0 [--slidein-delay:700ms]"
-									key={item}
-								>
+								<li className="text-black text-2xl mt-4 " key={item}>
 									{" "}
 									&bull; {item}
 								</li>

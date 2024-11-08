@@ -14,7 +14,7 @@ async function CaseStudies() {
 	const posts = await data.json();
 
 	return (
-		<div className="container mx-auto justify-center items-center basis-1 mt-10 animate-slidein opacity-0 [--slidein-delay:700ms]">
+		<div className="container mx-auto justify-center items-center basis-1 mt-10 ">
 			<h1 className="font-bold text-black font-faktumBold-900 text-3xl  flex">
 				{info.casestudies.title}
 			</h1>
@@ -45,7 +45,7 @@ async function CaseStudies() {
 									{post.title}
 								</p>
 								<div className="h-auto">
-									<div className="text-black font-generalSansMedium text-base m-2 text-left justify-start items-start w-auto animate-slidein opacity-0 [--slidein-delay:700ms]">
+									<div className="text-black font-generalSansMedium text-base m-2 text-left justify-start items-start w-auto ">
 										{post.description}
 									</div>
 								</div>
