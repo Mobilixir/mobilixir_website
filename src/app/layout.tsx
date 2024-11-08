@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navigation from "./components/navigation";
 import Footer from "./components/navigation/footer/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 const faktumRegular = localFont({
 	src: "./fonts/Faktum_Regular.otf",
@@ -68,6 +69,7 @@ export default function RootLayout({
 			<body
 				className={`bg-white ${faktumRegular.variable} ${faktumBold.variable} ${generalSansBold.variable} ${generalSansLight.variable} ${generalSansMedium.variable} ${generalSansRegular.variable}`}
 			>
+				<Analytics />
 				<Navigation />
 				<div id="home" className="min-h-screen flex flex-col w-auto bg-white">
 					{children}
