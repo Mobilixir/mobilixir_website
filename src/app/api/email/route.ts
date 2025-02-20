@@ -1,6 +1,7 @@
 import sendgrid from "@sendgrid/mail";
+import { type NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: NextRequest) {
 	const body = await req.json();
 
 	const apikey = process.env.SENDGRID_API_KEY;
@@ -12,11 +13,11 @@ export async function POST(req: Request, res: Response) {
 
 	try {
 		const mailBody = {
-			from: process.env.EMAIL_TO,
+			from: process.env.EMAIL_TO || "",
 			subject: body.subject,
 			text: body.message,
-			html: `<p>from ${body.name} - ${body.message}</p>`,
-			to: process.env.EMAIL_TO,
+			html: `<p>from ${body.email} - ${body.name} - ${body.message}</p>`,
+			to: process.env.EMAIL_TO || "",
 		};
 
 		await sendgrid.send(mailBody);
