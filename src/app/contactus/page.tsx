@@ -1,20 +1,35 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { sendEmail } from "../../../utils/send-email";
 import Image from "next/image";
 
 export type FormData = {
 	name: string;
 	email: string;
+	subject: string;
 	message: string;
 };
 
 function Contact() {
 	const { register, handleSubmit, reset } = useForm<FormData>();
 
-	function onSubmit(data: FormData) {
-		sendEmail(data);
+	async function onSubmit(data: FormData) {
+		const msg = JSON.stringify(data);
+
+		const res = await fetch("/api/email", {
+			body: msg,
+			headers: {
+				"Content-Type": "application/json",
+			},
+			method: "POST",
+		});
+
+		const { error } = await res.json();
+		if (error) {
+			console.log(error);
+			return;
+		}
+		console.log(register);
 		reset();
 	}
 
@@ -63,6 +78,20 @@ function Contact() {
 							placeholder="example@domain.com"
 							className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
 							{...register("email", { required: true })}
+						/>
+					</div>
+					<div className="mb-5 w-3/4">
+						<label
+							htmlFor="subject"
+							className="mb-3 block text-base font-medium text-black"
+						>
+							Subject
+						</label>
+						<input
+							type="text"
+							placeholder="Subject"
+							className="w-full rounded-md border border-gray-300 bg-white py-3 px-6 text-base font-medium text-gray-700 outline-none focus:border-purple-500 focus:shadow-md"
+							{...register("subject", { required: true })}
 						/>
 					</div>
 					<div className="mb-5 w-3/4">
