@@ -120,7 +120,7 @@ const jsonLd = {
 		"@type": "ContactPoint",
 		telephone: "+91-75889-45789",
 		contactType: "customer service",
-		email: "rushikesh.d.pandit@gmail.com",
+		email: "rushikesh@mobilixir.in",
 		availableLanguage: "English",
 	},
 	sameAs: [
