@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     "Phoenix LiveView",
     "full stack developer India",
   ],
-  authors: [{ name: "Rushikesh Pandit", url: "https://www.mobilixir.in" }],
+  authors: [{ name: "Mobilixir Technologies", url: "https://www.mobilixir.in" }],
   creator: "Mobilixir Technologies",
   publisher: "Mobilixir Technologies",
   robots: {
