@@ -1,87 +1,87 @@
 import { type NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-/**
- * POST /api/contact
- *
- * Accepts multipart/form-data with fields:
- *   name, email, company?, budget?, message, attachment? (File)
- *
- * In production, replace the console.log with an email sender such as:
- *   - Resend  (https://resend.com)
- *   - Nodemailer + SMTP
- *   - Formspree (just point the form action at your Formspree endpoint instead)
- */
+import { contactSchema } from "@/lib/contact-schema";
+
+const MIN_FILL_MS = 3000;
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_PER_WINDOW = 5;
+
+// Best-effort limiter: state lives in one server instance's memory, so it
+// slows casual abuse but is not a hard guarantee on serverless platforms.
+const hits = new Map<string, number[]>();
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000) hits.clear();
+  return recent.length > MAX_PER_WINDOW;
+}
+
+const escapeHtml = (s: string) =>
+  s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+
 export async function POST(request: NextRequest) {
-	try {
-		const formData = await request.formData();
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  if (rateLimited(ip)) {
+    return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 });
+  }
 
-		const name = formData.get("name") as string;
-		const email = formData.get("email") as string;
-		const company = formData.get("company") as string | null;
-		const budget = formData.get("budget") as string | null;
-		const message = formData.get("message") as string;
-		const file = formData.get("attachment") as File | null;
-		const attachments = [];
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
 
-		if (file) {
-			const buffer = Buffer.from(await file.arrayBuffer());
+  const parsed = contactSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: "Please check the form and try again." }, { status: 400 });
+  }
+  const data = parsed.data;
 
-			attachments.push({
-				filename: file.name,
-				content: buffer,
-			});
-		}
-		// Basic validation
-		if (!name || !email || !message) {
-			return NextResponse.json(
-				{ error: "name, email and message are required" },
-				{ status: 400 },
-			);
-		}
+  // Bots get a success response so they do not learn what tripped the trap.
+  if (data.website || !data.startedAt || Date.now() - data.startedAt < MIN_FILL_MS) {
+    return NextResponse.json({ success: true });
+  }
 
-		const transporter = nodemailer.createTransport({
-			host: process.env.SMTP_HOST,
-			port: Number(process.env.SMTP_PORT),
-			secure: true,
-			auth: {
-				user: process.env.SMTP_USER,
-				pass: process.env.SMTP_PASS,
-			},
-		});
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, EMAIL_TO, EMAIL_CC } = process.env;
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !EMAIL_TO) {
+    console.error("[contact] SMTP environment variables are not configured");
+    return NextResponse.json({ error: "Message could not be sent." }, { status: 500 });
+  }
 
-		await transporter.sendMail({
-			from: `"Mobilixir Website" <${process.env.SMTP_USER}>`,
-			to: process.env.EMAIL_TO,
-			cc: process.env.EMAIL_CC,
-			attachments,
-			replyTo: email, // user email
-			subject: `New Contact Form Submission from ${name}`,
-			text: `
-        Name: ${name}
-        Email: ${email}
-        Message: ${message}
-        company: ${company},
-        budget: ${budget},
-        message: ${message}
-      `,
-			html: `
-        <h3>New Contact Form Submission</h3>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Company:</b> ${company}</p>
-        <p><b>Budget:</b> ${budget}</p>
-        <p><b>Message:</b></p>
-        <p>${message}</p>
+  try {
+    const transporter = nodemailer.createTransport({
+      host: SMTP_HOST,
+      port: Number(SMTP_PORT) || 465,
+      secure: true,
+      auth: { user: SMTP_USER, pass: SMTP_PASS },
+    });
 
-      `,
-		});
+    const rows: [string, string][] = [
+      ["Name", data.name],
+      ["Email", data.email],
+      ["Service", data.service || "—"],
+      ["Budget", data.budget || "—"],
+    ];
 
-		return NextResponse.json({ success: true }, { status: 200 });
-	} catch (error) {
-		console.error("[Contact API Error]", error);
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
-	}
+    await transporter.sendMail({
+      from: `"Mobilixir Website" <${SMTP_USER}>`,
+      to: EMAIL_TO,
+      cc: EMAIL_CC || undefined,
+      replyTo: { name: data.name.replace(/[\r\n]/g, " "), address: data.email },
+      subject: `New enquiry: ${data.service || "General"}`,
+      text: [...rows.map(([k, v]) => `${k}: ${v}`), "", data.message].join("\n"),
+      html: `<table>${rows
+        .map(([k, v]) => `<tr><td><b>${k}</b></td><td>${escapeHtml(v)}</td></tr>`)
+        .join("")}</table><p style="white-space:pre-wrap">${escapeHtml(data.message)}</p>`,
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("[contact] send failed", error instanceof Error ? error.message : error);
+    return NextResponse.json({ error: "Message could not be sent." }, { status: 500 });
+  }
 }
