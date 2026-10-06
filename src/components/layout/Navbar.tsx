@@ -1,51 +1,60 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 import { NAV_ITEMS } from "@/data/site";
-import { useTheme } from "@/hooks/useTheme";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
-  const { isDark, toggleTheme, mounted } = useTheme();
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 12);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const closeDrawer = () => setDrawerOpen(false);
+  // Close the drawer on Escape and focus its close button while it is open.
+  useEffect(() => {
+    if (!open) return;
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <>
       <header
         className={cn(
           "fixed top-0 inset-x-0 z-50 transition-all duration-200",
-          scrolled
-            ? "bg-base-100/80 backdrop-blur-md shadow-sm border-b border-base-300/50"
-            : "bg-transparent"
+          scrolled ? "bg-base-100/80 backdrop-blur-md shadow-sm border-b border-base-300/50" : "bg-transparent",
         )}
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="font-bold text-xl tracking-tight text-base-content hover:text-primary transition-colors duration-150"
-          >
+        <nav aria-label="Main" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <Link href="/" className="font-bold text-xl tracking-tight hover:text-primary transition-colors">
             mobilixir<span className="text-primary">.</span>
           </Link>
 
-          {/* Desktop nav */}
-          <ul className="hidden lg:flex items-center gap-1">
+          <ul className="hidden md:flex items-center gap-1">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="px-3 py-2 rounded-lg text-sm font-medium text-base-content/70 hover:text-base-content hover:bg-base-200 transition-all duration-150"
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={cn(
+                    "px-3 py-2 rounded-lg text-sm font-medium hover:text-base-content hover:bg-base-200 transition-colors",
+                    isActive(item.href) ? "text-primary" : "text-base-content/70",
+                  )}
                 >
                   {item.label}
                 </Link>
@@ -53,32 +62,18 @@ export function Navbar() {
             ))}
           </ul>
 
-          {/* Right actions */}
           <div className="flex items-center gap-2">
-            {/* Theme toggle */}
-            {mounted && (
-              <button
-                onClick={toggleTheme}
-                className="touch-hitbox btn btn-ghost btn-sm btn-circle"
-                aria-label="Toggle theme"
-              >
-                {isDark ? <Sun size={17} /> : <Moon size={17} />}
-              </button>
-            )}
-
-            {/* CTA */}
-            <Link
-              href="#contact"
-              className="hidden sm:inline-flex btn btn-primary btn-sm rounded-full px-5"
-            >
-              Hire Us
+            <ThemeToggle />
+            <Link href="/contact" className="hidden sm:inline-flex btn btn-primary btn-sm rounded-full px-5">
+              Start a project
             </Link>
-
-            {/* Mobile menu toggle */}
             <button
-              className="lg:hidden touch-hitbox btn btn-ghost btn-sm btn-circle"
-              onClick={() => setDrawerOpen(true)}
+              type="button"
+              className="md:hidden touch-hitbox btn btn-ghost btn-sm btn-circle"
+              onClick={() => setOpen(true)}
               aria-label="Open menu"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
             >
               <Menu size={20} />
             </button>
@@ -86,54 +81,45 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Mobile drawer backdrop */}
-      {drawerOpen && (
-        <div
-          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm lg:hidden"
-          onClick={closeDrawer}
-        />
+      {open && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm md:hidden" onClick={() => setOpen(false)} aria-hidden="true" />
       )}
 
-      {/* Mobile drawer */}
       <div
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        inert={!open}
         className={cn(
-          "fixed top-0 right-0 bottom-0 z-50 w-72 bg-base-100 shadow-2xl lg:hidden",
-          "transform transition-transform duration-200 ease-out-quart",
-          drawerOpen ? "translate-x-0" : "translate-x-full"
+          "fixed top-0 right-0 bottom-0 z-50 w-72 bg-base-100 shadow-2xl md:hidden transform transition-transform duration-200",
+          open ? "translate-x-0" : "translate-x-full",
         )}
       >
         <div className="flex items-center justify-between px-6 h-16 border-b border-base-300">
           <span className="font-bold text-lg">
             mobilixir<span className="text-primary">.</span>
           </span>
-          <button
-            onClick={closeDrawer}
-            className="touch-hitbox btn btn-ghost btn-sm btn-circle"
-            aria-label="Close menu"
-          >
+          <button ref={closeRef} type="button" onClick={() => setOpen(false)} className="touch-hitbox btn btn-ghost btn-sm btn-circle" aria-label="Close menu">
             <X size={20} />
           </button>
         </div>
-
         <ul className="flex flex-col gap-1 p-4">
           {NAV_ITEMS.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                onClick={closeDrawer}
-                className="block px-4 py-3 rounded-xl text-base-content/80 hover:text-base-content hover:bg-base-200 font-medium transition-all duration-150"
+                onClick={() => setOpen(false)}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className="block px-4 py-3 rounded-xl font-medium text-base-content/80 hover:text-base-content hover:bg-base-200 transition-colors"
               >
                 {item.label}
               </Link>
             </li>
           ))}
           <li className="mt-4">
-            <Link
-              href="#contact"
-              onClick={closeDrawer}
-              className="btn btn-primary w-full rounded-full"
-            >
-              Hire Us
+            <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full rounded-full">
+              Start a project
             </Link>
           </li>
         </ul>

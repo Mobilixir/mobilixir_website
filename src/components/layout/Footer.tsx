@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { Phone, Mail, MessageCircle } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
-import { NAV_ITEMS, SOCIALS } from "@/data/site";
+import { Mail, Rss } from "lucide-react";
+import { GithubIcon } from "@/components/ui/BrandIcons";
+import { NAV_ITEMS, SERVICES, SITE, SOCIALS } from "@/data/site";
 
-const ICON_MAP: Record<string, React.ReactNode> = {
+const ICONS: Record<string, React.ReactNode> = {
   github: <GithubIcon size={18} />,
-  linkedin: <LinkedinIcon size={18} />,
-  phone: <Phone size={18} />,
+  devto: <Rss size={18} />,
   email: <Mail size={18} />,
-  whatsapp: <MessageCircle size={18} />,
 };
+
+const linkClass = "text-sm text-base-content/60 hover:text-primary transition-colors";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -17,87 +17,62 @@ export function Footer() {
   return (
     <footer className="bg-base-200 border-t border-base-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="md:col-span-1">
             <Link href="/" className="font-bold text-2xl tracking-tight">
               mobilixir<span className="text-primary">.</span>
             </Link>
             <p className="mt-3 text-sm text-base-content/60 leading-relaxed max-w-xs">
-              Boutique mobile &amp; web consultancy. We ship production-grade
-              software that clients actually use.
+              {SITE.tagline}. React Native, iOS, Next.js and Elixir, with a focus on security.
             </p>
-            <div className="flex items-center gap-3 mt-5">
+            <div className="flex items-center gap-2 mt-5">
               {SOCIALS.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
-                  target={s.icon === "whatsapp" || s.icon === "github" || s.icon === "linkedin" ? "_blank" : undefined}
-                  rel="noopener noreferrer"
+                  {...(s.icon !== "email" && { target: "_blank", rel: "noopener noreferrer" })}
                   aria-label={s.label}
-                  className="touch-hitbox btn btn-ghost btn-sm btn-circle text-base-content/60 hover:text-primary hover:bg-primary/10 transition-colors duration-150"
+                  className="touch-hitbox btn btn-ghost btn-sm btn-circle text-base-content/60 hover:text-primary hover:bg-primary/10"
                 >
-                  {ICON_MAP[s.icon]}
+                  {ICONS[s.icon]}
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Navigation */}
-          <div>
-            <h3 className="font-semibold text-sm uppercase tracking-wider text-base-content/40 mb-4">
-              Navigation
-            </h3>
+          <nav aria-label="Services">
+            <h3 className="font-semibold text-sm uppercase tracking-wider text-base-content/40 mb-4">Services</h3>
             <ul className="flex flex-col gap-2">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-base-content/60 hover:text-primary transition-colors duration-150"
-                  >
-                    {item.label}
-                  </Link>
+              {SERVICES.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/services/${s.slug}`} className={linkClass}>{s.title}</Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Contact quick links */}
+          <nav aria-label="Company">
+            <h3 className="font-semibold text-sm uppercase tracking-wider text-base-content/40 mb-4">Company</h3>
+            <ul className="flex flex-col gap-2">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className={linkClass}>{item.label}</Link>
+                </li>
+              ))}
+              <li><Link href="/contact" className={linkClass}>Contact</Link></li>
+              <li><Link href="/privacy" className={linkClass}>Privacy</Link></li>
+            </ul>
+          </nav>
+
           <div>
-            <h3 className="font-semibold text-sm uppercase tracking-wider text-base-content/40 mb-4">
-              Get In Touch
-            </h3>
-            <div className="flex flex-col gap-3">
-              <a
-                href="mailto:rushikesh@mobilixir.in"
-                className="text-sm text-base-content/60 hover:text-primary transition-colors duration-150"
-              >
-                rushikesh@mobilixir.in
-              </a>
-              <a
-                href="tel:+917588945789"
-                className="text-sm text-base-content/60 hover:text-primary transition-colors duration-150"
-              >
-                +91 75889 45789
-              </a>
-              <a
-                href="https://wa.me/917588945789"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 btn btn-sm btn-outline border-primary text-primary hover:bg-primary hover:text-primary-content rounded-full mt-2 transition-all duration-150 active:scale-[0.97]"
-              >
-                <MessageCircle size={15} />
-                Chat on WhatsApp
-              </a>
-            </div>
+            <h3 className="font-semibold text-sm uppercase tracking-wider text-base-content/40 mb-4">Get in touch</h3>
+            <a href={`mailto:${SITE.email}`} className={linkClass}>{SITE.email}</a>
+            <p className="text-sm text-base-content/60 mt-3">Based in {SITE.location}. Working remotely with clients worldwide.</p>
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-base-300 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-base-content/40">
-            © {year} Mobilixir Technologies. All rights reserved.
-          </p>
-          
+        <div className="mt-10 pt-6 border-t border-base-300">
+          <p className="text-xs text-base-content/40">© {year} {SITE.name}. All rights reserved.</p>
         </div>
       </div>
     </footer>
