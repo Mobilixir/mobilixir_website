@@ -1,3 +1,4 @@
+import { SITE } from "@/data/site";
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
@@ -9,6 +10,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://www.mobilixir.in/sitemap.xml",
+    sitemap: `${SITE.url}/sitemap.xml`,
   };
 }
