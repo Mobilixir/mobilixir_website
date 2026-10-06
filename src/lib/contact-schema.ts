@@ -15,7 +15,7 @@ export const contactSchema = z.object({
     .max(5000, "Please keep the message under 5,000 characters"),
   // Spam traps: humans never see or fill `website`, and `startedAt` lets us
   // reject submissions made faster than a person could type.
-  website: z.string().max(0).optional(),
+  website: z.string().max(200).optional(),
   startedAt: z.number().optional(),
 });
 
