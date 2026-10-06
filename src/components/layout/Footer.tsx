@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { Github, Linkedin, Phone, Mail, MessageCircle } from "lucide-react";
+import { Phone, Mail, MessageCircle } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
 import { NAV_ITEMS, SOCIALS } from "@/data/site";
 
 const ICON_MAP: Record<string, React.ReactNode> = {
-  github: <Github size={18} />,
-  linkedin: <Linkedin size={18} />,
+  github: <GithubIcon size={18} />,
+  linkedin: <LinkedinIcon size={18} />,
   phone: <Phone size={18} />,
   email: <Mail size={18} />,
   whatsapp: <MessageCircle size={18} />,
