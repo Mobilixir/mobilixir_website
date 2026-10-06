@@ -119,9 +119,10 @@ export const HERO = {
   primaryCta: { label: "Start a project", href: "/contact" },
   secondaryCta: { label: "See our work", href: "/work" },
   pillars: [
-    { title: "Mobile", text: "React Native & native iOS" },
+    { title: "Mobile", text: "React Native & native iOS (Swift, SwiftUI)" },
     { title: "Web", text: "Next.js & Phoenix LiveView" },
     { title: "Backend", text: "Elixir & Node.js APIs" },
+    { title: "Security", text: "Mobile hardening & App Store privacy compliance" },
     { title: "Delivery", text: "Fastlane, CircleCI, Bitrise" },
   ],
 };

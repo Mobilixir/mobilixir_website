@@ -99,7 +99,7 @@ export function ContactForm({ defaultService = "" }: { defaultService?: string }
 
       {status === "error" && <p role="alert" className="text-sm text-error">{errorMessage} You can also email us directly.</p>}
 
-      <button type="submit" disabled={status === "sending"} className="btn btn-primary rounded-full gap-2 mt-2 active:scale-[0.97] transition-transform">
+      <button type="submit" disabled={status === "sending"} className="btn btn-primary rounded-lg gap-2 mt-2 active:scale-[0.97] transition-transform">
         {status === "sending" ? <span className="loading loading-spinner loading-sm" /> : <Send size={16} />}
         {status === "sending" ? "Sending…" : "Send message"}
       </button>

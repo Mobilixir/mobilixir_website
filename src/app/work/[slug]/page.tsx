@@ -47,11 +47,11 @@ export default async function ProjectPage({ params }: Props) {
       <PageHeader eyebrow={`${project.category} · ${project.kind}`} title={project.name} description={project.summary}>
         <div className="flex flex-wrap gap-3 mt-8">
           {project.links.map((l) => (
-            <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="btn btn-primary rounded-full px-6 gap-1">
+            <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="btn btn-primary rounded-lg px-6 gap-1">
               {l.label} <ArrowUpRight size={16} />
             </a>
           ))}
-          <Link href="/work" className="btn btn-ghost rounded-full">All work</Link>
+          <Link href="/work" className="btn btn-ghost rounded-lg">All work</Link>
         </div>
       </PageHeader>
 

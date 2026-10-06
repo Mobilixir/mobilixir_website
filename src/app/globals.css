@@ -3,9 +3,8 @@
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where([data-theme=mobilixir-dark], [data-theme=mobilixir-dark] *));
 
-/* ─── Light theme — Zinc & Emerald ──────────────────────────────────────────
-   Base: cool zinc whites. Primary: emerald green.
-   Feels: Vercel-clean, technical, confident.
+/* ─── Light theme — Ink & Cobalt ────────────────────────────────────────────
+   Crisp white surfaces, navy ink, one cobalt accent. Enterprise-calm.
 ─────────────────────────────────────────────────────────────────────────── */
 @plugin "daisyui/theme" {
   name: "mobilixir-light";
@@ -13,37 +12,31 @@
   prefersdark: false;
   color-scheme: "light";
 
-  /* Zinc whites — very slightly cool, not pure white */
-  --color-base-100: oklch(99% 0.002 240);
-  --color-base-200: oklch(96.5% 0.003 240);
-  --color-base-300: oklch(91% 0.005 240);
-  --color-base-content: oklch(18% 0.006 250);
+  --color-base-100: oklch(99.5% 0.002 260);
+  --color-base-200: oklch(97% 0.006 260);
+  --color-base-300: oklch(92% 0.01 260);
+  --color-base-content: oklch(22% 0.05 262);
 
-  /* Emerald primary */
-  --color-primary: oklch(56% 0.17 155);
+  --color-primary: oklch(50% 0.2 262);
   --color-primary-content: oklch(99% 0 0);
-
-  /* Emerald secondary (slightly lighter) */
-  --color-secondary: oklch(68% 0.15 155);
+  --color-secondary: oklch(40% 0.08 262);
   --color-secondary-content: oklch(99% 0 0);
-
-  /* Accent — zinc dark for contrast elements */
-  --color-accent: oklch(25% 0.008 250);
+  --color-accent: oklch(62% 0.14 215);
   --color-accent-content: oklch(99% 0 0);
 
-  --color-neutral: oklch(25% 0.008 250);
-  --color-neutral-content: oklch(98% 0 0);
+  --color-neutral: oklch(20% 0.05 262);
+  --color-neutral-content: oklch(96% 0.01 260);
 
-  --color-info: oklch(58% 0.14 222);
+  --color-info: oklch(58% 0.14 230);
   --color-info-content: oklch(99% 0 0);
-  --color-success: oklch(56% 0.17 155);
+  --color-success: oklch(58% 0.14 160);
   --color-success-content: oklch(99% 0 0);
-  --color-warning: oklch(70% 0.16 72);
-  --color-warning-content: oklch(25% 0.05 72);
-  --color-error: oklch(58% 0.22 18);
+  --color-warning: oklch(72% 0.15 75);
+  --color-warning-content: oklch(25% 0.05 75);
+  --color-error: oklch(56% 0.21 25);
   --color-error-content: oklch(99% 0 0);
 
-  --radius-selector: 0.5rem;
+  --radius-selector: 0.375rem;
   --radius-field: 0.5rem;
   --radius-box: 0.75rem;
   --size-selector: 0.25rem;
@@ -53,45 +46,38 @@
   --noise: 0;
 }
 
-/* ─── Dark theme — Zinc & Emerald ───────────────────────────────────────────
-   Base: deep zinc charcoal, not pure black — avoids harshness.
-   Primary: bright emerald that pops on dark.
-─────────────────────────────────────────────────────────────────────────── */
+/* ─── Dark theme — Midnight & Azure ─────────────────────────────────────── */
 @plugin "daisyui/theme" {
   name: "mobilixir-dark";
   default: false;
   prefersdark: true;
   color-scheme: "dark";
 
-  /* Zinc charcoals */
-  --color-base-100: oklch(14% 0.006 250);
-  --color-base-200: oklch(18% 0.007 250);
-  --color-base-300: oklch(24% 0.008 250);
-  --color-base-content: oklch(95% 0.004 240);
+  --color-base-100: oklch(16% 0.03 262);
+  --color-base-200: oklch(19.5% 0.035 262);
+  --color-base-300: oklch(27% 0.04 262);
+  --color-base-content: oklch(95% 0.01 255);
 
-  /* Bright emerald — readable on dark */
-  --color-primary: oklch(72% 0.19 155);
-  --color-primary-content: oklch(14% 0.05 155);
+  --color-primary: oklch(70% 0.15 258);
+  --color-primary-content: oklch(16% 0.04 262);
+  --color-secondary: oklch(62% 0.1 262);
+  --color-secondary-content: oklch(98% 0 0);
+  --color-accent: oklch(76% 0.12 210);
+  --color-accent-content: oklch(16% 0.04 262);
 
-  --color-secondary: oklch(62% 0.15 155);
-  --color-secondary-content: oklch(14% 0.05 155);
+  --color-neutral: oklch(12% 0.03 262);
+  --color-neutral-content: oklch(95% 0.01 255);
 
-  --color-accent: oklch(85% 0.005 240);
-  --color-accent-content: oklch(14% 0.006 250);
+  --color-info: oklch(70% 0.13 230);
+  --color-info-content: oklch(16% 0.04 262);
+  --color-success: oklch(72% 0.14 160);
+  --color-success-content: oklch(16% 0.04 262);
+  --color-warning: oklch(80% 0.14 75);
+  --color-warning-content: oklch(22% 0.05 75);
+  --color-error: oklch(68% 0.19 25);
+  --color-error-content: oklch(16% 0.04 262);
 
-  --color-neutral: oklch(28% 0.008 250);
-  --color-neutral-content: oklch(95% 0 0);
-
-  --color-info: oklch(68% 0.14 222);
-  --color-info-content: oklch(14% 0.05 222);
-  --color-success: oklch(72% 0.19 155);
-  --color-success-content: oklch(14% 0.05 155);
-  --color-warning: oklch(78% 0.16 72);
-  --color-warning-content: oklch(22% 0.06 72);
-  --color-error: oklch(68% 0.2 18);
-  --color-error-content: oklch(14% 0.05 18);
-
-  --radius-selector: 0.5rem;
+  --radius-selector: 0.375rem;
   --radius-field: 0.5rem;
   --radius-box: 0.75rem;
   --size-selector: 0.25rem;
@@ -101,116 +87,56 @@
   --noise: 0;
 }
 
-/* ─── Card elevation — CSS 3D lift system ───────────────────────────────────
-   Two classes:
-     .card-elevated     — the card itself (transform + shadow transition)
-     .card-elevated-wrap — optional perspective wrapper (put on the grid/ul)
+/* ─── Type ──────────────────────────────────────────────────────────────── */
+@theme inline {
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
 
-   How the shadow layers work:
-     Layer 1 (offset-y)  — simulates the card lifting away from the surface
-     Layer 2 (spread)    — ambient shadow that grows as card rises
-     Layer 3 (color glow)— primary-tinted halo, very subtle in light, vivid in dark
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
 
-   Light theme uses oklch(56% 0.17 155) = emerald primary colour
-   Dark  theme uses oklch(72% 0.19 155) = bright emerald primary colour
-   Both are defined as CSS custom properties so a single rule covers both themes.
+/* ─── Cards ─────────────────────────────────────────────────────────────────
+   Border + soft shadow change on hover. No lift on the hovered element
+   (it would slide out from under the cursor), press gives tactile feedback.
 ─────────────────────────────────────────────────────────────────────────── */
-
-/* Resting shadow — a hint of depth even before hover */
-:root {
-  --shadow-card-rest-light:
-    0 1px 3px oklch(0% 0 0 / 0.06),
-    0 1px 2px oklch(0% 0 0 / 0.08);
-
-  --shadow-card-hover-light:
-    0 10px 30px oklch(0% 0 0 / 0.10),
-    0 4px  12px oklch(0% 0 0 / 0.08),
-    0 0   24px oklch(56% 0.17 155 / 0.12);
-
-  --shadow-card-rest-dark:
-    0 1px 3px oklch(0% 0 0 / 0.35),
-    0 1px 2px oklch(0% 0 0 / 0.25);
-
-  --shadow-card-hover-dark:
-    0 10px 35px oklch(0% 0 0 / 0.55),
-    0 4px  14px oklch(0% 0 0 / 0.40),
-    0 0   28px oklch(72% 0.19 155 / 0.20);
-}
-
-/* Perspective wrapper — apply to the grid container for true 3D context */
-.cards-perspective {
-  perspective: 1200px;
-}
-
-/* The card itself */
 .card-elevated {
-  will-change: transform, box-shadow;
   transition:
-    transform       220ms cubic-bezier(0.165, 0.84, 0.44, 1),
-    box-shadow      220ms cubic-bezier(0.165, 0.84, 0.44, 1),
-    border-color    150ms ease;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-}
-
-/* Light theme resting + hover */
-[data-theme="mobilixir-light"] .card-elevated {
-  box-shadow: var(--shadow-card-rest-light);
+    border-color 160ms ease,
+    box-shadow 200ms cubic-bezier(0.19, 1, 0.22, 1),
+    transform 150ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  [data-theme="mobilixir-light"] .card-elevated:hover {
-    transform: translateY(-6px) rotateX(2deg);
-    box-shadow: var(--shadow-card-hover-light);
-    border-color: oklch(56% 0.17 155 / 0.35) !important;
+  .card-elevated:hover {
+    border-color: color-mix(in oklch, var(--color-primary) 45%, transparent);
+    box-shadow: 0 12px 32px -12px color-mix(in oklch, var(--color-primary) 30%, transparent);
   }
 }
 
-/* Dark theme resting + hover */
-[data-theme="mobilixir-dark"] .card-elevated {
-  box-shadow: var(--shadow-card-rest-dark);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  [data-theme="mobilixir-dark"] .card-elevated:hover {
-    transform: translateY(-6px) rotateX(2deg);
-    box-shadow: var(--shadow-card-hover-dark);
-    border-color: oklch(72% 0.19 155 / 0.45) !important;
-  }
-}
-
-/* Active / press state — card presses in slightly */
 .card-elevated:active {
-  transform: translateY(-2px) rotateX(1deg) scale(0.99);
-  transition-duration: 80ms;
+  transform: scale(0.99);
 }
 
-/* ─── Animation easing utilities ─────────────────────────────────────────── */
+/* ─── Easing utilities ──────────────────────────────────────────────────── */
 @layer utilities {
-  .ease-out-quart {
-    transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-  .ease-out-expo {
-    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-  }
-  .ease-in-out-cubic {
-    transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-  }
-  .will-change-transform {
-    will-change: transform;
-  }
+  .ease-out-expo { transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
 }
 
-/* ─── Smooth scroll ──────────────────────────────────────────────────────── */
-html {
-  scroll-behavior: smooth;
+/* ─── Smooth scroll (only when the user has no reduced-motion preference) ── */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
 }
+
+/* Anchor targets stay clear of the fixed navbar */
+html { scroll-padding-top: 5rem; }
 
 /* ─── Touch hit targets (44px minimum per Apple / WCAG) ─────────────────── */
-.touch-hitbox {
-  position: relative;
-}
-
+.touch-hitbox { position: relative; }
 .touch-hitbox::before {
   content: "";
   position: absolute;
@@ -225,34 +151,78 @@ html {
   z-index: 9999;
 }
 
-/* ─── Gradient mesh background (hero) ───────────────────────────────────── */
-/* Updated to emerald palette */
-.mesh-bg {
+/* ─── Hero / header backdrop: faint engineering grid + cobalt glow ───────── */
+.grid-bg {
+  position: relative;
+  isolation: isolate;
+}
+.grid-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background-image:
-    radial-gradient(at 20% 30%, oklch(56% 0.17 155 / 0.10) 0px, transparent 55%),
-    radial-gradient(at 80% 70%, oklch(68% 0.15 155 / 0.07) 0px, transparent 55%),
-    radial-gradient(at 50% 100%, oklch(56% 0.17 155 / 0.04) 0px, transparent 60%);
+    linear-gradient(to right, color-mix(in oklch, var(--color-base-content) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--color-base-content) 7%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 30%, transparent 75%);
+}
+.grid-bg::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  width: 70%;
+  height: 70%;
+  transform: translateX(-50%);
+  z-index: -1;
+  background: radial-gradient(closest-side, color-mix(in oklch, var(--color-primary) 16%, transparent), transparent);
+  pointer-events: none;
 }
 
-[data-theme="mobilixir-dark"] .mesh-bg {
-  background-image:
-    radial-gradient(at 20% 30%, oklch(72% 0.19 155 / 0.12) 0px, transparent 55%),
-    radial-gradient(at 80% 70%, oklch(62% 0.15 155 / 0.09) 0px, transparent 55%),
-    radial-gradient(at 50% 100%, oklch(72% 0.19 155 / 0.06) 0px, transparent 60%);
+/* ─── Scrubbed reading-progress bar (scroll position is the clock) ───────── */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  z-index: 60;
+  background: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
 }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      animation: grow-x linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+@keyframes grow-x { to { transform: scaleX(1); } }
 
-/* ─── Reduced motion — disable all animations ───────────────────────────── */
+/* ─── Tech marquee: constant motion, so linear; static under reduced motion ─ */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 3rem;
+  animation: marquee 40s linear infinite;
+}
+@media (hover: hover) {
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+  .marquee-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+  .marquee-dup { display: none; }
+}
+@keyframes marquee { to { transform: translateX(calc(-50% - 1.5rem)); } }
 
-  .card-elevated:hover {
-    transform: none !important;
+/* ─── Work rows: arrow slides in on hover (fine pointers only) ───────────── */
+@media (hover: hover) and (pointer: fine) {
+  .work-row .work-arrow {
+    transform: translateX(-6px);
+    opacity: 0.4;
+    transition: transform 200ms cubic-bezier(0.19, 1, 0.22, 1), opacity 150ms ease;
   }
+  .work-row:hover .work-arrow { transform: translateX(0); opacity: 1; }
 }

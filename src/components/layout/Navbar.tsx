@@ -64,7 +64,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link href="/contact" className="hidden sm:inline-flex btn btn-primary btn-sm rounded-full px-5">
+            <Link href="/contact" className="hidden sm:inline-flex btn btn-primary btn-sm rounded-lg px-5">
               Start a project
             </Link>
             <button
@@ -118,7 +118,7 @@ export function Navbar() {
             </li>
           ))}
           <li className="mt-4">
-            <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full rounded-full">
+            <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-primary w-full rounded-lg">
               Start a project
             </Link>
           </li>

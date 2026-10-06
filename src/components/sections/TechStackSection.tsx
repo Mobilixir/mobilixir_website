@@ -4,23 +4,21 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function TechStackSection() {
   return (
-    <section className="py-24 sm:py-32 bg-base-200">
+    <section className="py-24 sm:py-32 bg-base-200/60 border-y border-base-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading eyebrow="Tech stack" title="Tools we work with every day" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <SectionHeading eyebrow="Tech stack" title="Tools we use every day." />
+        <dl className="border-t border-base-300">
           {TECH_STACK.map((cat, i) => (
-            <Reveal key={cat.title} delay={(i % 3) * 0.06}>
-              <div className="h-full p-6 rounded-2xl bg-base-100 border border-base-300">
-                <h3 className="font-semibold mb-3">{cat.title}</h3>
-                <ul className="flex flex-wrap gap-2">
-                  {cat.items.map((item) => (
-                    <li key={item} className="badge badge-outline">{item}</li>
-                  ))}
-                </ul>
+            <Reveal key={cat.title} delay={i * 0.05}>
+              <div className="grid sm:grid-cols-[12rem_1fr] gap-2 sm:gap-8 py-6 border-b border-base-300">
+                <dt className="font-mono text-sm text-base-content/50">{cat.title}</dt>
+                <dd className="flex flex-wrap gap-x-6 gap-y-2 text-lg font-medium">
+                  {cat.items.map((item) => <span key={item}>{item}</span>)}
+                </dd>
               </div>
             </Reveal>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
   );

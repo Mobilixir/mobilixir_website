@@ -1,21 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, DM_Serif_Display } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { Providers } from "@/components/layout/Providers";
 import { SITE } from "@/data/site";
 import "./globals.css";
 
 // ─── Fonts ────────────────────────────────────────────────────────────────────
 
-const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-
-const dmSerif = DM_Serif_Display({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-serif",
-  display: "swap",
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 
@@ -69,8 +63,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
-    { media: "(prefers-color-scheme: dark)", color: "#1a1a1a" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1424" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -97,6 +91,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Reveals start hidden; without JS they must still be readable */}
+        <noscript>
+          <style>{`[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {/* Theme initialisation — runs before first paint to prevent a flash */}
         <script
@@ -105,13 +103,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }}
         />
       </head>
-      <body className={`${dmSans.variable} ${dmSerif.variable} font-sans antialiased bg-base-100 text-base-content`}>
+      <body className={`${inter.variable} ${jetbrains.variable} font-sans antialiased bg-base-100 text-base-content`}>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:btn focus:btn-primary">
           Skip to content
         </a>
-        <Navbar />
-        <main id="main">{children}</main>
-        <Footer />
+        <Providers>
+          <div className="scroll-progress" aria-hidden="true" />
+          <Navbar />
+          <main id="main">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

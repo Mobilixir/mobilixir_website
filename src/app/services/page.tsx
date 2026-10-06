@@ -22,7 +22,7 @@ export default function ServicesPage() {
       />
       <section className="py-16 bg-base-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SERVICES.map((s) => <ServiceCard key={s.slug} service={s} />)}
+          {SERVICES.map((s, i) => <ServiceCard key={s.slug} service={s} index={i} />)}
         </div>
       </section>
       <ProcessSection />

@@ -57,10 +57,10 @@ export default async function ServicePage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PageHeader eyebrow="Service" title={service.title} description={service.description}>
         <div className="flex flex-wrap gap-3 mt-8">
-          <Link href={`/contact?service=${service.slug}`} className="btn btn-primary rounded-full px-8">
+          <Link href={`/contact?service=${service.slug}`} className="btn btn-primary rounded-lg px-8">
             Discuss this service
           </Link>
-          <Link href="/services" className="btn btn-ghost rounded-full">All services</Link>
+          <Link href="/services" className="btn btn-ghost rounded-lg">All services</Link>
         </div>
       </PageHeader>
 
