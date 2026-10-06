@@ -8,6 +8,7 @@ import { CtaBand } from "@/components/ui/CtaBand";
 export const metadata: Metadata = {
   title: "Services",
   description: "Mobile app development, mobile security hardening, web apps, backend APIs, CI/CD and technical consulting from Mobilixir Technologies.",
+  keywords: ["mobile app development services", "web app development services", "backend API development", "mobile security services", "CI/CD consulting"],
   alternates: { canonical: "/services" },
 };
 

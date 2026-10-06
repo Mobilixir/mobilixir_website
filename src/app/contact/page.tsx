@@ -7,6 +7,7 @@ import { ContactForm } from "@/components/ui/ContactForm";
 export const metadata: Metadata = {
   title: "Contact",
   description: "Tell Mobilixir Technologies about your mobile or web project. You will get a reply within two business days.",
+  keywords: ["hire mobile app developer", "request a project quote", "mobile app development quote India"],
   alternates: { canonical: "/contact" },
 };
 

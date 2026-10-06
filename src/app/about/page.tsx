@@ -7,6 +7,7 @@ import { CtaBand } from "@/components/ui/CtaBand";
 export const metadata: Metadata = {
   title: "About",
   description: "Mobilixir Technologies is an independent software studio building secure, maintainable mobile and web products.",
+  keywords: ["software studio India", "independent mobile developer", "React Native Elixir Next.js team"],
   alternates: { canonical: "/about" },
 };
 

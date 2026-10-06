@@ -29,6 +29,7 @@ export interface Service {
   icon: ServiceIcon;
   /** One sentence for cards and meta descriptions. */
   summary: string;
+  keywords: string[];
   /** Longer intro for the service page. */
   description: string;
   audience: string;
@@ -65,6 +66,7 @@ export interface Project {
   kind: "npm package" | "VS Code extension" | "Web tool";
   category: ProjectCategory;
   summary: string;
+  keywords: string[];
   description: string;
   highlights: string[];
   tags: string[];
@@ -166,6 +168,7 @@ export const SERVICES: Service[] = [
     icon: "smartphone",
     summary:
       "Cross-platform React Native apps and native iOS (Swift / SwiftUI) apps, shipped to the App Store and Google Play.",
+    keywords: ["React Native app development", "iOS app development", "Swift SwiftUI developer", "cross-platform mobile app development", "hire React Native developer India", "mobile app development company India", "App Store submission", "Redux Toolkit Saga"],
     description:
       "From first prototype to store release. React Native when one codebase for iOS and Android is the right trade-off; native Swift and SwiftUI when you need Apple platform depth such as HealthKit, StoreKit or Core ML.",
     audience: "Startups and businesses launching or rebuilding a mobile product.",
@@ -194,6 +197,7 @@ export const SERVICES: Service[] = [
     icon: "shield",
     summary:
       "Root and jailbreak detection, screen-capture and clipboard protection, and privacy-manifest compliance for mobile apps.",
+    keywords: ["mobile app security", "React Native security", "root detection", "jailbreak detection", "Frida detection", "prevent screenshots React Native", "screen recording protection", "PrivacyInfo.xcprivacy", "OWASP MASVS mobile", "fintech app security"],
     description:
       "Practical, layered hardening for React Native and iOS apps that handle sensitive data. This is the area the studio's open-source libraries come from, so the techniques are battle-tested in public.",
     audience:
@@ -219,6 +223,7 @@ export const SERVICES: Service[] = [
     icon: "globe",
     summary:
       "Fast, SEO-friendly Next.js frontends and real-time Phoenix LiveView applications.",
+    keywords: ["Next.js development", "Next.js developer India", "Phoenix LiveView development", "React web app development", "SEO friendly web app", "Tailwind CSS development", "startup web development"],
     description:
       "Type-safe React frontends with the Next.js App Router, from marketing sites to dashboards, and real-time server-rendered apps with Elixir and Phoenix LiveView.",
     audience: "Founders and small teams who need a web product or dashboard.",
@@ -243,6 +248,7 @@ export const SERVICES: Service[] = [
     icon: "server",
     summary:
       "REST and real-time APIs in Elixir and Node.js, designed with auth, validation and observability from day one.",
+    keywords: ["Elixir development", "Phoenix framework developer", "Node.js API development", "REST API development", "PostgreSQL backend", "real-time backend WebSocket", "backend development India"],
     description:
       "APIs and services that your mobile and web clients can rely on: clear contracts, sensible auth, and the operational basics (logging, health checks, rate limits) in place from the start.",
     audience: "Products that need a reliable API or a backend for a new app.",
@@ -267,6 +273,7 @@ export const SERVICES: Service[] = [
     icon: "rocket",
     summary:
       "Automated build, test and release pipelines for mobile and web, with code signing and store deployment handled.",
+    keywords: ["Fastlane automation", "mobile CI/CD", "CircleCI mobile pipeline", "Bitrise setup", "iOS code signing automation", "TestFlight automation", "GitHub Actions mobile"],
     description:
       "Stop shipping from a laptop. Pipelines that build, test, sign and publish your app so a release becomes a button press, not an afternoon.",
     audience: "Teams releasing mobile apps by hand, or with a fragile pipeline.",
@@ -291,6 +298,7 @@ export const SERVICES: Service[] = [
     icon: "compass",
     summary:
       "Architecture reviews, code audits and MVP scoping — a low-commitment way to get senior input.",
+    keywords: ["React Native code review", "architecture review", "MVP scoping", "app launch readiness", "technical consultant India", "mobile app audit"],
     description:
       "A fixed-scope engagement for when you need an independent opinion: is this architecture sound, is the app ready to launch, what should the MVP include?",
     audience: "Founders and teams who want a second opinion before committing budget.",
@@ -370,6 +378,7 @@ export const PROJECTS: Project[] = [
     category: "Mobile Security",
     summary:
       "A lightweight React Native security module that detects rooted and jailbroken devices, runtime instrumentation (Frida), debuggers and emulators.",
+    keywords: ["react-native-root-jail-detect", "React Native root detection", "React Native jailbreak detection", "Frida detection React Native", "detect emulator React Native"],
     description:
       "Apps that handle money or personal data often need to know when they are running in a hostile environment. This library gives React Native apps a single, small API to check for rooted (Android) and jailbroken (iOS) devices, as well as instrumentation tools such as Frida, attached debuggers and emulators, so the app can decide how to respond.",
     highlights: [
@@ -395,6 +404,7 @@ export const PROJECTS: Project[] = [
     category: "Mobile Security",
     summary:
       "A zero-dependency React Native library that protects sensitive screens from screenshots, screen recordings, app-switcher previews and clipboard leaks.",
+    keywords: ["react-native-privacy-guard-kit", "React Native prevent screenshot", "React Native screen recording block", "hide app in app switcher", "React Native clipboard protection"],
     description:
       "Sensitive content leaks in quiet ways: a screenshot, a screen recording, the thumbnail in the app switcher, or a copied value left on the clipboard. Privacy Guard Kit closes those gaps with a hook, a provider and a strictly typed TypeScript API, and no third-party dependencies.",
     highlights: [
@@ -421,6 +431,7 @@ export const PROJECTS: Project[] = [
     category: "Mobile",
     summary:
       "A lightweight, high-performance QR and barcode scanner for React Native, built natively in Swift and Kotlin for the New Architecture.",
+    keywords: ["react-native-qr-camera-pro", "React Native QR scanner", "React Native barcode scanner", "React Native New Architecture camera", "TurboModule Fabric camera", "CameraX ML Kit React Native"],
     description:
       "Many React Native scanner libraries are unmaintained or push frame processing through the JavaScript bridge. This one runs all frame analysis in native code: Swift on iOS, and Kotlin with CameraX and ML Kit on Android. It uses TurboModules and Fabric, so it works with the New Architecture, and exposes a small, strictly typed API with hooks.",
     highlights: [
@@ -447,6 +458,7 @@ export const PROJECTS: Project[] = [
     category: "App Store Compliance",
     summary:
       "A free web tool that generates the PrivacyInfo.xcprivacy file Apple now requires for App Store submissions.",
+    keywords: ["PrivacyInfo.xcprivacy generator", "iOS privacy manifest", "Apple privacy manifest required reason API", "App Store privacy rejection fix"],
     description:
       "Apple rejects apps whose privacy manifest is missing or incomplete. The iOS App Privacy Generator lets you describe your app's data collection and required-reason API usage and produces a ready-to-use PrivacyInfo.xcprivacy file, saving the manual XML editing.",
     highlights: [
@@ -467,6 +479,7 @@ export const PROJECTS: Project[] = [
     category: "Developer Tooling",
     summary:
       "A VS Code extension that scaffolds React Native projects with Redux Toolkit and Saga, in TypeScript.",
+    keywords: ["Redux Toolkit Saga TypeScript", "React Native Redux boilerplate", "VS Code extension Redux Toolkit", "Redux Saga setup generator"],
     description:
       "Wiring up Redux Toolkit and Redux-Saga is the same boilerplate on every project. This VS Code extension generates the store, slices and saga setup in TypeScript, so a new React Native project starts from a consistent, typed foundation instead of copy-pasted code.",
     highlights: [
@@ -490,6 +503,7 @@ export const PROJECTS: Project[] = [
     category: "Developer Tooling",
     summary:
       "A VS Code extension that scaffolds React Native projects with Redux Toolkit and Saga, in JavaScript.",
+    keywords: ["Redux Toolkit Saga boilerplate", "React Native Redux Saga setup", "VS Code extension React Native", "Redux Toolkit generator"],
     description:
       "The original version of the scaffolder: it generates the Redux Toolkit and Saga setup for React Native projects in JavaScript, so you can start building features instead of configuring state management.",
     highlights: [

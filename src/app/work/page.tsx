@@ -7,6 +7,7 @@ import { CtaBand } from "@/components/ui/CtaBand";
 export const metadata: Metadata = {
   title: "Work",
   description: "Open-source React Native libraries, VS Code extensions and developer tools published by Mobilixir Technologies.",
+  keywords: ["React Native libraries", "open source React Native", "VS Code extensions", "iOS privacy manifest tool"],
   alternates: { canonical: "/work" },
 };
 

@@ -9,6 +9,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Blog",
   description: "Articles on React Native, mobile security, Elixir and Phoenix from Mobilixir Technologies.",
+  keywords: ["React Native blog", "mobile security articles", "Elixir Phoenix tutorials"],
   alternates: { canonical: "/blog" },
 };
 
