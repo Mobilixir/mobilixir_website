@@ -587,4 +587,4 @@ Still open:
 | 10 Analytics / QA / launch | Not started | No analytics, no Playwright tests, no deployment yet |
 | 11 Backlog | Not started | |
 
-Known gaps to check before launch: the unverified claims in `src/data/site.ts` for `react-native-qr-camera-pro` (the description is generic: replace it with the real README text), and the company LinkedIn page is no longer linked.
+Resolved: `react-native-qr-camera-pro` now uses its real npm README text and the company LinkedIn page is linked.

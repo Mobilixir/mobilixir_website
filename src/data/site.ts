@@ -102,6 +102,7 @@ export const NAV_ITEMS: NavItem[] = [
 
 export const SOCIALS: Social[] = [
   { href: "https://github.com/rushikeshpandit", label: "GitHub", icon: "github" },
+  { href: "https://www.linkedin.com/company/mobilixir/", label: "LinkedIn", icon: "linkedin" },
   { href: "https://dev.to/rushikeshpandit", label: "dev.to", icon: "devto" },
   { href: `mailto:${SITE.email}`, label: "Email", icon: "email" },
 ];
@@ -419,15 +420,17 @@ export const PROJECTS: Project[] = [
     kind: "npm package",
     category: "Mobile",
     summary:
-      "A React Native camera module for scanning QR codes in your app.",
+      "A lightweight, high-performance QR and barcode scanner for React Native, built natively in Swift and Kotlin for the New Architecture.",
     description:
-      "A React Native library for adding QR code scanning with the device camera. It is published on npm and maintained by the studio; see the package page for the full API, supported platforms and usage examples.",
+      "Many React Native scanner libraries are unmaintained or push frame processing through the JavaScript bridge. This one runs all frame analysis in native code: Swift on iOS, and Kotlin with CameraX and ML Kit on Android. It uses TurboModules and Fabric, so it works with the New Architecture, and exposes a small, strictly typed API with hooks.",
     highlights: [
-      "QR code scanning with the device camera",
-      "Built for React Native apps",
-      "Published and versioned on npm",
+      "Native-first: Swift on iOS, Kotlin + CameraX + ML Kit on Android, no JS frame processing",
+      "Ready for the New Architecture (TurboModules + Fabric)",
+      "Reads QR plus many barcode formats (EAN, Code-128, PDF-417, Aztec, Data Matrix and more)",
+      "Torch control, configurable scan throttling and a customisable overlay",
+      "Lifecycle-aware and fully typed in TypeScript, MIT licensed",
     ],
-    tags: ["React Native", "Camera", "QR code"],
+    tags: ["React Native", "Swift", "Kotlin", "New Architecture", "Camera"],
     install: "npm install react-native-qr-camera-pro",
     links: [
       {

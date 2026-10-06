@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Mail, Rss } from "lucide-react";
-import { GithubIcon } from "@/components/ui/BrandIcons";
+import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
 import { NAV_ITEMS, SERVICES, SITE, SOCIALS } from "@/data/site";
 
 const ICONS: Record<string, React.ReactNode> = {
   github: <GithubIcon size={18} />,
+  linkedin: <LinkedinIcon size={18} />,
   devto: <Rss size={18} />,
   email: <Mail size={18} />,
 };
