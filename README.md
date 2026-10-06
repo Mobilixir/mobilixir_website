@@ -1,117 +1,44 @@
 # Mobilixir Technologies — Website
 
-Production-grade Next.js 15 website for Mobilixir Technologies, built with TypeScript, Tailwind CSS v4, DaisyUI v5, and Framer Motion.
+Marketing site for Mobilixir Technologies, built with Next.js (App Router), TypeScript, Tailwind CSS v4, DaisyUI and Framer Motion.
 
-## Stack
+## Routes
 
-| Layer | Technology |
+| Route | Purpose |
 |---|---|
-| Framework | Next.js 15 (App Router) |
-| Language | TypeScript (strict) |
-| Styling | Tailwind CSS v4 + DaisyUI v5 |
-| Animations | Framer Motion |
-| Forms | React Hook Form + Zod |
-| Fonts | DM Sans + DM Serif Display |
-| Analytics | Google Analytics 4 (optional) |
-| Deployment | Vercel |
+| `/` | Home: hero, services, featured work, process, stack, latest posts |
+| `/services`, `/services/[slug]` | Service overview and detail pages |
+| `/work`, `/work/[slug]` | Published libraries, tools and extensions |
+| `/blog`, `/blog/[slug]` | Posts pulled from dev.to (hourly revalidation) |
+| `/about`, `/contact`, `/privacy` | Company info, enquiry form, privacy policy |
+| `/sitemap.xml`, `/robots.txt`, `/rss.xml` | SEO and feeds |
 
-## Getting Started
+## Getting started
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Set up environment variables
-cp .env.example .env.local
-# Edit .env.local and add your GA4 ID etc.
-
-# 3. Start development server
+cp .env.example .env     # fill in SMTP details for the contact form
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Other scripts: `npm run build`, `npm run lint`, `npx tsc --noEmit`.
 
-## Environment Variables
+## Updating content
 
-| Variable | Description |
+All content lives in [src/data/site.ts](src/data/site.ts). Add an entry to `SERVICES` or `PROJECTS` and the page, listings, sitemap and related links update automatically. Blog posts come from the dev.to account in `SITE.devtoUsername`; publish there and the site picks them up within an hour.
+
+Content rule: no metric, client or testimonial goes in unless it is real.
+
+## Environment variables
+
+| Name | Purpose |
 |---|---|
-| `NEXT_PUBLIC_GA_ID` | Google Analytics 4 Measurement ID (e.g. `G-XXXXXXXXXX`) |
-| `RESEND_API_KEY` | Resend API key for sending contact form emails |
-| `NEXT_PUBLIC_SITE_URL` | Canonical site URL |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` | SMTP (TLS) credentials for the contact form |
+| `EMAIL_TO`, `EMAIL_CC` | Where enquiries are delivered |
 
-## Enabling Analytics (Vercel)
+## Notes
 
-1. Create a GA4 property at [analytics.google.com](https://analytics.google.com)
-2. Copy the Measurement ID (starts with `G-`)
-3. Add `NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX` in Vercel → Project Settings → Environment Variables
-4. Redeploy
-
-## Contact Form Email Setup
-
-The `/api/contact` route currently logs submissions. To send real emails:
-
-1. Sign up at [resend.com](https://resend.com) (free tier available)
-2. Add your domain and get an API key
-3. Install: `npm install resend`
-4. Uncomment the Resend block in `src/app/api/contact/route.ts`
-5. Add `RESEND_API_KEY` to your environment
-
-## Project Structure
-
-```
-src/
-├── app/
-│   ├── api/contact/route.ts   # Contact form API
-│   ├── layout.tsx             # Root layout + SEO metadata
-│   ├── page.tsx               # Home page
-│   ├── sitemap.ts             # Automatic sitemap
-│   ├── robots.ts              # Crawl rules
-│   └── globals.css            # Tailwind + DaisyUI themes
-├── components/
-│   ├── layout/
-│   │   ├── Navbar.tsx
-│   │   └── Footer.tsx
-│   ├── sections/
-│   │   ├── HeroSection.tsx
-│   │   ├── AboutSection.tsx
-│   │   ├── ServicesSection.tsx
-│   │   ├── ProcessSection.tsx
-│   │   ├── TechStackSection.tsx
-│   │   ├── CaseStudiesSection.tsx
-│   │   ├── TestimonialsSection.tsx
-│   │   └── ContactSection.tsx
-│   └── ui/
-│       └── WhatsAppFab.tsx
-├── data/
-│   └── site.ts                # Single source of truth for all content
-├── hooks/
-│   ├── useTheme.ts
-│   └── useInView.ts
-└── lib/
-    └── utils.ts               # cn(), animation variants
-```
-
-## Deployment
-
-```bash
-npm run build   # Verify build passes locally
-```
-
-Push to GitHub and connect to Vercel. Vercel auto-detects Next.js.
-
-## Updating Content
-
-All site content lives in `src/data/site.ts`. Edit that file to update:
-- Navigation links
-- Hero text and stats
-- About section
-- Services
-- Process steps
-- Tech stack
-- Case studies
-- Testimonials
-- Social links
-
-## Adding Real Client Testimonials
-
-Replace the placeholder entries in `TESTIMONIALS` inside `src/data/site.ts` and remove the disclaimer note from `TestimonialsSection.tsx`.
+- Contact form protections: shared Zod validation, honeypot, minimum fill time and a best-effort in-memory rate limit (per server instance).
+- `eslint` is pinned to 9 and `typescript` to 6 until typescript-eslint and eslint-plugin-react support ESLint 10 / TypeScript 7.
+- `docs/private/` is git-ignored and holds private source material.
+- The plan and remaining backlog are in [PLAN.md](PLAN.md).

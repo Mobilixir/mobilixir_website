@@ -568,3 +568,23 @@ Still open:
 | Accessibility for users with disabilities | 9.3 |
 | **Main point 1:** stealth, simple, scalable, no personal info, easy to update | 0, Phase 2, 5.1, 7.4, 11 |
 | **Main point 2:** no projects or testimonials yet, honest portfolio | 0, Phase 2, 5.3, 5.4 |
+
+---
+
+## Implementation Status (2026-10-06, branch `feature/revamp_oct_2026`)
+
+| Phase | Status | Notes |
+|---|---|---|
+| 1 Discovery / upgrades | Partial | Dependencies upgraded (1.6). The live-site audit, the inspiration report and the Lighthouse baseline are **not done** |
+| 2 Stealth & truthfulness | Done | Fake content, phone, WhatsApp and the founder name removed. Contact is `hey@mobilixir.in` |
+| 3 Brand / design system | Partial | Existing DaisyUI emerald/zinc theme kept. No new wireframes, logo or mockups |
+| 4 Core build | Done | Shared shell, accessible nav, home, about, 404 |
+| 5 Content & portfolio | Done | Typed content in `src/data/site.ts`, 6 services, 6 projects |
+| 6 Blog | Done | Option A (dev.to, hourly revalidation); canonical stays on dev.to. Move to MDX (option B) later |
+| 7 Contact / security | Mostly | Form hardened, privacy page, headers. **Missing:** CAPTCHA, a durable rate limit, SPF/DKIM/DMARC check, CSP with nonces |
+| 8 SEO | Mostly | Metadata, JSON-LD, sitemap, RSS, OG image. **Missing:** Search Console / Bing registration, keyword research |
+| 9 Motion / perf / a11y | Partial | Reduced-motion aware, skip link, focus handling. **Missing:** Lighthouse and axe runs, a keyboard and screen-reader pass |
+| 10 Analytics / QA / launch | Not started | No analytics, no Playwright tests, no deployment yet |
+| 11 Backlog | Not started | |
+
+Known gaps to check before launch: the unverified claims in `src/data/site.ts` for `react-native-qr-camera-pro` (the description is generic: replace it with the real README text), and the company LinkedIn page is no longer linked.
