@@ -103,10 +103,14 @@ export const NAV_ITEMS: NavItem[] = [
 // ─── Socials ─────────────────────────────────────────────────────────────────
 
 export const SOCIALS: Social[] = [
-  { href: "https://github.com/rushikeshpandit", label: "GitHub", icon: "github" },
-  { href: "https://www.linkedin.com/company/mobilixir/", label: "LinkedIn", icon: "linkedin" },
-  { href: "https://dev.to/rushikeshpandit", label: "dev.to", icon: "devto" },
-  { href: `mailto:${SITE.email}`, label: "Email", icon: "email" },
+	{ href: "https://github.com/Mobilixir", label: "GitHub", icon: "github" },
+	{
+		href: "https://www.linkedin.com/company/mobilixir/",
+		label: "LinkedIn",
+		icon: "linkedin",
+	},
+	{ href: "https://dev.to/rushikeshpandit", label: "dev.to", icon: "devto" },
+	{ href: `mailto:${SITE.email}`, label: "Email", icon: "email" },
 ];
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
