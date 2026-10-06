@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where([data-theme=mobilixir-dark], [data-theme=mobilixir-dark] *));
 
 /* ─── Light theme — Zinc & Emerald ──────────────────────────────────────────
    Base: cool zinc whites. Primary: emerald green.
