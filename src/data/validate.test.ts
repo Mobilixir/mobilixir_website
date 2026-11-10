@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { PROJECT_CATEGORIES, PROJECTS, SERVICES, type Project, type Service } from "./site.ts";
+import { BOILERPLATES, PROJECT_CATEGORIES, PROJECTS, SERVICES, type Project, type Service } from "./site.ts";
 import { findContentProblems } from "./validate.ts";
 
 const service = (slug: string): Service => ({
@@ -35,7 +35,7 @@ const check = (projects: Project[], services = [service("mobile")]) =>
   findContentProblems({ projects, services, categories: PROJECT_CATEGORIES });
 
 test("site content has no problems", () => {
-  assert.deepEqual(findContentProblems({ projects: PROJECTS, services: SERVICES, categories: PROJECT_CATEGORIES }), []);
+  assert.deepEqual(findContentProblems({ projects: PROJECTS, services: SERVICES, categories: PROJECT_CATEGORIES, boilerplates: BOILERPLATES }), []);
 });
 
 test("valid project reports no problems", () => {
@@ -102,5 +102,27 @@ test("category missing from the filter list is reported", () => {
   assert.deepEqual(
     findContentProblems({ projects: [project()], services: [service("mobile")], categories: ["Mobile Security"] }),
     ['project "lib": category "Mobile" is not in PROJECT_CATEGORIES'],
+  );
+});
+
+test("boilerplate pointing at an unknown project is reported", () => {
+  assert.deepEqual(
+    findContentProblems({ projects: [project()], services: [service("mobile")], categories: PROJECT_CATEGORIES, boilerplates: [{ slug: "ghost", platform: "Mobile" }] }),
+    ['boilerplate "ghost": no project with that slug'],
+  );
+});
+
+test("boilerplate without an effort estimate is reported", () => {
+  assert.deepEqual(
+    findContentProblems({ projects: [project()], services: [service("mobile")], categories: PROJECT_CATEGORIES, boilerplates: [{ slug: "lib", platform: "Mobile" }] }),
+    ['boilerplate "lib": project needs an effort estimate'],
+  );
+});
+
+test("boilerplate with an effort estimate reports no problems", () => {
+  const p = project({ effort: [{ task: "Store", hours: { min: 1, max: 2 } }] });
+  assert.deepEqual(
+    findContentProblems({ projects: [p], services: [service("mobile")], categories: PROJECT_CATEGORIES, boilerplates: [{ slug: "lib", platform: "Mobile" }] }),
+    [],
   );
 });

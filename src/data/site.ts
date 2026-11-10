@@ -885,7 +885,68 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
   "Mobile",
 ];
 
+// ─── Boilerplates ────────────────────────────────────────────────────────────
+
+export interface BoilerplateEntry {
+  /** Slug of a project that has an effort estimate. */
+  slug: string;
+  platform: "Web & backend" | "Mobile";
+}
+
+/** The ready-made foundations, in the order /boilerplates and the home page show them. */
+export const BOILERPLATES: BoilerplateEntry[] = [
+  { slug: "typixir", platform: "Web & backend" },
+  { slug: "phoenixir", platform: "Web & backend" },
+  { slug: "redux-toolkit-saga-typescript-boilerplate", platform: "Mobile" },
+  { slug: "redux-toolkit-saga-boilerplate", platform: "Mobile" },
+];
+
+export const BOILERPLATE_VS_SCRATCH: Comparison = {
+  against: "Starting from scratch",
+  rows: [
+    { aspect: "First week", them: "Auth, project structure, CI and configuration", us: "Your first product feature" },
+    { aspect: "Security basics", them: "Designed, built and reviewed by you, under deadline", us: "Already built, tested and documented" },
+    { aspect: "Tests and CI", them: "Added later, if there is time", us: "A suite and quality gates from the first commit" },
+    { aspect: "Consistency", them: "Each project and developer does it differently", us: "The same structure on every project" },
+    { aspect: "Decisions", them: "Made one at a time as problems appear", us: "Made up front and written down with the reasons" },
+    { aspect: "Ownership", them: "Every line is yours", us: "Every line is yours too: full source code to change or remove" },
+  ],
+};
+
+export const SCRATCH_IS_BETTER_WHEN: string[] = [
+  "Your product is the infrastructure: if auth or billing is what you sell, own every line from the first commit.",
+  "Your team works in a different stack. Adapting a kit to another language or database costs more than it saves.",
+  "The scope is a landing page and a form. That does not need a separate API, worker and billing.",
+  "Learning every layer yourself is the goal.",
+];
+
+export const BOILERPLATE_FAQS: { q: string; a: string }[] = [
+  {
+    q: "Do I own the code?",
+    a: "Yes. You get the full source code and can change or remove anything. The starter kits are licensed per developer or per team; the Redux Toolkit Saga extensions are free on the VS Code Marketplace.",
+  },
+  {
+    q: "Can I remove the parts I do not need?",
+    a: "Yes. Phoenixir and Typixir generate your app with only the modules you choose, and every module's guide explains how to remove it later.",
+  },
+  {
+    q: "Can you build our product on one of these?",
+    a: "Yes. That is the fastest way to work with us: we start from a tested foundation and spend your budget on the features that make your product different.",
+  },
+  {
+    q: "Where do the hour estimates come from?",
+    a: "They are our planning estimates for an experienced engineer building the same pieces from scratch. They are not measured results, and your numbers will depend on scope.",
+  },
+];
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 export const getService = (slug: string) => SERVICES.find((s) => s.slug === slug);
 export const getProject = (slug: string) => PROJECTS.find((p) => p.slug === slug);
+
+/** BOILERPLATES resolved to their projects. The content test guarantees every slug resolves. */
+export const getBoilerplates = () =>
+  BOILERPLATES.flatMap((b) => {
+    const project = getProject(b.slug);
+    return project ? [{ ...b, project }] : [];
+  });
