@@ -6,7 +6,7 @@ export function EffortTable({ items, caption }: { items: EffortItem[]; caption: 
   return (
     <figure>
       <div className="overflow-x-auto rounded-xl border border-base-300">
-        <table className="w-full min-w-[28rem] text-sm text-left">
+        <table className="w-full min-w-md text-sm text-left">
           <caption className="sr-only">{caption}</caption>
           <thead className="bg-base-200/70">
             <tr>

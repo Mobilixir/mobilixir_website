@@ -4,7 +4,7 @@ import type { Comparison } from "@/data/site";
 export function ComparisonTable({ comparison, ours }: { comparison: Comparison; ours: string }) {
   return (
     <div className="overflow-x-auto rounded-xl border border-base-300">
-      <table className="w-full min-w-[36rem] text-sm text-left">
+      <table className="w-full min-w-xl text-sm text-left">
         <caption className="sr-only">{`${ours} compared with ${comparison.against}`}</caption>
         <thead className="bg-base-200/70">
           <tr>

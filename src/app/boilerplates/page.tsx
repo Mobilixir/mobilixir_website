@@ -79,7 +79,7 @@ export default function BoilerplatesPage() {
             description="What each foundation replaces, estimated for an experienced engineer. Open a project for the line-by-line breakdown."
           />
           <div className="overflow-x-auto rounded-xl border border-base-300 bg-base-100">
-            <table className="w-full min-w-[32rem] text-sm text-left">
+            <table className="w-full min-w-lg text-sm text-left">
               <caption className="sr-only">Estimated hours each boilerplate saves</caption>
               <thead className="bg-base-200/70">
                 <tr>
