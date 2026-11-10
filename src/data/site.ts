@@ -63,7 +63,7 @@ export interface ProjectLink {
 export interface Project {
   slug: string;
   name: string;
-  kind: "npm package" | "VS Code extension" | "Web tool";
+  kind: "npm package" | "CLI tool" | "VS Code extension" | "Web tool";
   category: ProjectCategory;
   summary: string;
   keywords: string[];
@@ -455,6 +455,61 @@ export const PROJECTS: Project[] = [
       },
     ],
     services: ["mobile-app-development"],
+  },
+  {
+    slug: "react-native-i18n-kit",
+    name: "react-native-i18n-kit",
+    kind: "npm package",
+    category: "Mobile",
+    summary:
+      "A fully native, zero-dependency localization toolkit for React Native: device-locale detection, translations, plurals, RTL and locale-aware formatting.",
+    keywords: ["react-native-i18n-kit", "React Native localization", "React Native i18n", "React Native translation library", "React Native RTL", "React Native New Architecture i18n", "16 KB page size React Native"],
+    description:
+      "Localization in React Native usually means stitching together a JavaScript translation library, a native module for the device locale and your own formatting helpers. react-native-i18n-kit does all of it in one package with no third-party dependencies. Locale, calendar, time zone, number format and 12/24-hour settings are read natively (android.icu on Android, Foundation.Locale on iOS), and a hooks-first API handles translations, CLDR plural rules, interpolation, RTL and formatting. It is a TurboModule built for the New Architecture and ships no prebuilt native binaries, so it is 16 KB page-size compliant on Android 15+.",
+    highlights: [
+      "Zero third-party dependencies: Kotlin, Swift and TypeScript only",
+      "Native device-locale detection, including calendar, time zone, number format, clock and measurement system",
+      "useTranslation() and useDeviceLocale() hooks; switching language re-renders the tree instantly",
+      "CLDR plural buckets and {{token}} interpolation per language",
+      "RTL-aware, with optional automatic I18nManager handling",
+      "Locale-aware number, currency, percent, date and relative-time formatting",
+      "Remembers the chosen language natively and restores it on next launch",
+      "TurboModule for the New Architecture, 16 KB page-size compliant",
+    ],
+    tags: ["React Native", "i18n", "Kotlin", "Swift", "TypeScript", "New Architecture"],
+    install: "npm install react-native-i18n-kit",
+    links: [
+      { label: "View on npm", href: "https://www.npmjs.com/package/react-native-i18n-kit" },
+      { label: "View on GitHub", href: "https://github.com/rushikeshpandit/react-native-i18n-kit" },
+    ],
+    services: ["mobile-app-development"],
+  },
+  {
+    slug: "rn-upgrade-doctor",
+    name: "RN Upgrade Doctor",
+    kind: "CLI tool",
+    category: "Developer Tooling",
+    summary:
+      "A CLI that scans your React Native or Expo project against a target version and tells you what will break before you upgrade, with the evidence for every finding.",
+    keywords: ["RN Upgrade Doctor", "React Native upgrade", "React Native upgrade checker", "upgrade React Native version", "Expo SDK upgrade", "React Native Gradle Kotlin upgrade", "React Native Upgrade Helper alternative"],
+    description:
+      "Most React Native upgrades go the same way: bump the version, build, and discover one error at a time that Gradle, the Android Gradle Plugin, Kotlin, the NDK, Xcode or CocoaPods needs to change too. RN Upgrade Doctor reads your project first and reports what the target release requires against what you have. Findings are deterministic and cite their source, and where the data does not cover something it says so instead of guessing. It runs locally and sends nothing anywhere. The RN Upgrade Doctor web app adds compatibility checks for 150 tracked libraries.",
+    highlights: [
+      "Covers React Native 0.60 to 0.87 and Expo SDK 45 to 57",
+      "Checks Node.js and React, Gradle, AGP, Kotlin, NDK, compileSdk and targetSdk, Xcode, iOS deployment target and CocoaPods",
+      "Every finding cites its evidence and the date it was verified",
+      "Runs fully locally; nothing about your project is uploaded",
+      "CI-ready: --json output, --ci mode and stable exit codes (0, 1, 2)",
+      "Config file to ignore rules or change severities; never executes project code",
+      "Web app adds compatibility checks for 150 tracked libraries",
+    ],
+    tags: ["React Native", "Expo", "CLI", "TypeScript", "Android", "iOS"],
+    install: "npx @mobilixir/rn-upgrade-doctor analyze --target 0.87 --path ./my-app",
+    links: [
+      { label: "View on npm", href: "https://www.npmjs.com/package/@mobilixir/rn-upgrade-doctor" },
+      { label: "Open the web app", href: "https://rnupgradedoctor.dev" },
+    ],
+    services: ["mobile-app-development", "technical-consulting"],
   },
   {
     slug: "ios-app-privacy-generator",
