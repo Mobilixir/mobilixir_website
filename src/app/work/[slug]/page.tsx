@@ -5,6 +5,9 @@ import { ArrowUpRight, Check } from "lucide-react";
 import { PROJECTS, SERVICES, SITE, getProject } from "@/data/site";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { CtaBand } from "@/components/ui/CtaBand";
+import { BenefitGrid } from "@/components/ui/BenefitGrid";
+import { ComparisonTable } from "@/components/ui/ComparisonTable";
+import { EffortTable } from "@/components/ui/EffortTable";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -46,11 +49,17 @@ export default async function ProjectPage({ params }: Props) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PageHeader eyebrow={`${project.category} · ${project.kind}`} title={project.name} description={project.summary}>
         <div className="flex flex-wrap gap-3 mt-8">
-          {project.links.map((l) => (
-            <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="btn btn-primary rounded-lg px-6 gap-1">
-              {l.label} <ArrowUpRight size={16} />
-            </a>
-          ))}
+          {project.links.map((l) =>
+            l.href.startsWith("/") ? (
+              <Link key={l.href} href={l.href} className="btn btn-primary rounded-lg px-6 gap-1">
+                {l.label} <ArrowUpRight size={16} />
+              </Link>
+            ) : (
+              <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="btn btn-primary rounded-lg px-6 gap-1">
+                {l.label} <ArrowUpRight size={16} />
+              </a>
+            ),
+          )}
           <Link href="/work" className="btn btn-ghost rounded-lg">All work</Link>
         </div>
       </PageHeader>
@@ -77,6 +86,34 @@ export default async function ProjectPage({ params }: Props) {
                 <pre className="rounded-xl bg-neutral text-neutral-content p-4 overflow-x-auto text-sm">
                   <code>{project.install}</code>
                 </pre>
+              </>
+            )}
+
+            {project.benefits && (
+              <>
+                <h2 className="text-2xl font-bold mt-10 mb-5">Why teams use it</h2>
+                <BenefitGrid benefits={project.benefits} />
+              </>
+            )}
+
+            {project.comparisons && (
+              <>
+                <h2 className="text-2xl font-bold mt-10 mb-2">How it compares</h2>
+                {project.comparisons.map((c) => (
+                  <div key={c.against} className="mt-6">
+                    <h3 className="font-semibold mb-3">
+                      <span className="eyebrow mr-2">vs</span>{c.against}
+                    </h3>
+                    <ComparisonTable comparison={c} ours={project.name} />
+                  </div>
+                ))}
+              </>
+            )}
+
+            {project.effort && (
+              <>
+                <h2 className="text-2xl font-bold mt-10 mb-5">Time it saves</h2>
+                <EffortTable items={project.effort} caption={`Estimated hours ${project.name} saves`} />
               </>
             )}
           </div>

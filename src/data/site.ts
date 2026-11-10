@@ -1,6 +1,9 @@
 // Single source of truth for site content. To add a service or project,
 // append an entry here — pages, sitemap and listings pick it up automatically.
 // Rule: no metric, client or testimonial goes in here unless it is real.
+// Effort estimates are the one exception, and are always shown with EFFORT_NOTE.
+
+import type { EffortItem } from "../lib/effort";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -53,6 +56,7 @@ export type ProjectCategory =
   | "Mobile Security"
   | "Developer Tooling"
   | "App Store Compliance"
+  | "Starter Kits"
   | "Mobile";
 
 export interface ProjectLink {
@@ -60,10 +64,22 @@ export interface ProjectLink {
   href: string;
 }
 
+export interface Benefit {
+  title: string;
+  text: string;
+}
+
+/** A side-by-side comparison against one alternative. Only claims we can back up. */
+export interface Comparison {
+  /** The alternative, e.g. "Writing the checks yourself". */
+  against: string;
+  rows: { aspect: string; them: string; us: string }[];
+}
+
 export interface Project {
   slug: string;
   name: string;
-  kind: "npm package" | "VS Code extension" | "Web tool";
+  kind: "npm package" | "CLI tool" | "VS Code extension" | "Web tool" | "Starter kit";
   category: ProjectCategory;
   summary: string;
   keywords: string[];
@@ -75,7 +91,16 @@ export interface Project {
   links: ProjectLink[];
   /** Service slugs this project is evidence for. */
   services: string[];
+  /** Why teams pick it, shown as cards on the project page. */
+  benefits?: Benefit[];
+  comparisons?: Comparison[];
+  /** Estimated work it saves versus building from scratch (see EFFORT_NOTE). */
+  effort?: EffortItem[];
 }
+
+/** Shown wherever effort estimates appear, so they are never mistaken for measurements. */
+export const EFFORT_NOTE =
+  "These are our planning estimates for an experienced engineer building the same thing from scratch, not measured results. Your numbers will depend on scope and how well you know the stack.";
 
 // ─── Company ─────────────────────────────────────────────────────────────────
 
@@ -96,6 +121,7 @@ export const SITE = {
 export const NAV_ITEMS: NavItem[] = [
   { href: "/services", label: "Services" },
   { href: "/work", label: "Work" },
+  { href: "/boilerplates", label: "Boilerplates" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
 ];
@@ -401,6 +427,22 @@ export const PROJECTS: Project[] = [
       },
     ],
     services: ["mobile-security-hardening", "mobile-app-development"],
+    benefits: [
+      { title: "One API, both platforms", text: "Android root and iOS jailbreak checks sit behind one JavaScript call, so there is no native code to write or maintain." },
+      { title: "More than root checks", text: "It also flags Frida, attached debuggers and emulators, the tools most often used to inspect or tamper with an app." },
+      { title: "You decide the response", text: "It returns signals rather than crashing the app, so you choose whether to warn, limit features or report to your server." },
+    ],
+    comparisons: [
+      {
+        against: "Writing the checks yourself",
+        rows: [
+          { aspect: "Platforms", them: "Separate Kotlin and Swift code to write, test and maintain", us: "One JavaScript / TypeScript API for both" },
+          { aspect: "Signals", them: "Root, jailbreak, Frida, debugger and emulator checks each researched and built separately", us: "All five in one package" },
+          { aspect: "Upkeep", them: "Yours to keep current as detection techniques change", us: "A versioned npm package you update like any other" },
+          { aspect: "Getting started", them: "Native modules, bridging and a test matrix of devices", us: "npm install and one call" },
+        ],
+      },
+    ],
   },
   {
     slug: "react-native-privacy-guard-kit",
@@ -428,6 +470,22 @@ export const PROJECTS: Project[] = [
       },
     ],
     services: ["mobile-security-hardening", "mobile-app-development"],
+    benefits: [
+      { title: "Closes the quiet leaks", text: "Screenshots, screen recordings, app-switcher thumbnails and the clipboard are covered together, not one at a time." },
+      { title: "Drop-in API", text: "A hook and a provider protect a screen in a few lines, with strict TypeScript types." },
+      { title: "No dependency risk", text: "Zero runtime dependencies means nothing extra to audit and a smaller supply-chain surface." },
+    ],
+    comparisons: [
+      {
+        against: "Writing platform code per screen",
+        rows: [
+          { aspect: "Screenshots and recording", them: "Android FLAG_SECURE in native code, and a separate workaround on iOS", us: "One API for both platforms" },
+          { aspect: "App-switcher preview", them: "Native lifecycle handling on each platform", us: "Built in" },
+          { aspect: "Clipboard", them: "Easy to forget until a security review finds it", us: "Built-in guard" },
+          { aspect: "Dependencies", them: "Whatever you add along the way", us: "None at runtime" },
+        ],
+      },
+    ],
   },
   {
     slug: "react-native-qr-camera-pro",
@@ -455,6 +513,117 @@ export const PROJECTS: Project[] = [
       },
     ],
     services: ["mobile-app-development"],
+    benefits: [
+      { title: "Smooth scanning", text: "Frame analysis never touches the JavaScript thread, so your UI stays responsive while the camera runs." },
+      { title: "New Architecture ready", text: "Built on TurboModules and Fabric, so it does not hold back your React Native upgrades." },
+      { title: "Many formats, one component", text: "QR plus EAN, Code-128, PDF-417, Aztec, Data Matrix and more, with torch control and a customisable overlay." },
+    ],
+    comparisons: [
+      {
+        against: "Scanners that process frames in JavaScript",
+        rows: [
+          { aspect: "Where frames are analysed", them: "In JavaScript, across the bridge", us: "Natively: Swift on iOS, Kotlin with CameraX and ML Kit on Android" },
+          { aspect: "New Architecture", them: "Support varies, and some libraries are no longer maintained", us: "TurboModules and Fabric" },
+          { aspect: "API", them: "Varies by library", us: "Small, strictly typed API with hooks" },
+          { aspect: "Licence", them: "Varies by library", us: "MIT" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "react-native-i18n-kit",
+    name: "react-native-i18n-kit",
+    kind: "npm package",
+    category: "Mobile",
+    summary:
+      "A fully native, zero-dependency localization toolkit for React Native: device-locale detection, translations, plurals, RTL and locale-aware formatting.",
+    keywords: ["react-native-i18n-kit", "React Native localization", "React Native i18n", "React Native translation library", "React Native RTL", "React Native New Architecture i18n", "16 KB page size React Native"],
+    description:
+      "Localization in React Native usually means stitching together a JavaScript translation library, a native module for the device locale and your own formatting helpers. react-native-i18n-kit does all of it in one package with no third-party dependencies. Locale, calendar, time zone, number format and 12/24-hour settings are read natively (android.icu on Android, Foundation.Locale on iOS), and a hooks-first API handles translations, CLDR plural rules, interpolation, RTL and formatting. It is a TurboModule built for the New Architecture and ships no prebuilt native binaries, so it is 16 KB page-size compliant on Android 15+.",
+    highlights: [
+      "Zero third-party dependencies: Kotlin, Swift and TypeScript only",
+      "Native device-locale detection, including calendar, time zone, number format, clock and measurement system",
+      "useTranslation() and useDeviceLocale() hooks; switching language re-renders the tree instantly",
+      "CLDR plural buckets and {{token}} interpolation per language",
+      "RTL-aware, with optional automatic I18nManager handling",
+      "Locale-aware number, currency, percent, date and relative-time formatting",
+      "Remembers the chosen language natively and restores it on next launch",
+      "TurboModule for the New Architecture, 16 KB page-size compliant",
+    ],
+    tags: ["React Native", "i18n", "Kotlin", "Swift", "TypeScript", "New Architecture"],
+    install: "npm install react-native-i18n-kit",
+    links: [
+      { label: "View on npm", href: "https://www.npmjs.com/package/react-native-i18n-kit" },
+      { label: "View on GitHub", href: "https://github.com/rushikeshpandit/react-native-i18n-kit" },
+    ],
+    services: ["mobile-app-development"],
+    benefits: [
+      { title: "One package instead of several", text: "Translations, device locale, plurals, RTL and formatting come from one library with no third-party dependencies." },
+      { title: "Native accuracy", text: "Calendar, time zone, number format, clock and measurement settings are read from the OS, not guessed in JavaScript." },
+      { title: "Ready for what is next", text: "A New Architecture TurboModule with no prebuilt binaries, so Android 15's 16 KB page-size rule is already met." },
+    ],
+    comparisons: [
+      {
+        against: "A typical JavaScript i18n setup",
+        rows: [
+          { aspect: "Packages", them: "A translation library plus a native module for the device locale, often more", us: "One package, zero third-party dependencies" },
+          { aspect: "Device settings", them: "Whatever the extra native module exposes", us: "Language, region, calendar, time zone, number format, 12/24-hour clock and measurement system" },
+          { aspect: "Remembering the language", them: "Usually your own storage code", us: "Saved natively and restored on next launch" },
+          { aspect: "16 KB page size (Android 15+)", them: "Check every native dependency", us: "Compliant: no prebuilt native binaries" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "rn-upgrade-doctor",
+    name: "RN Upgrade Doctor",
+    kind: "CLI tool",
+    category: "Developer Tooling",
+    summary:
+      "A CLI that scans your React Native or Expo project against a target version and tells you what will break before you upgrade, with the evidence for every finding.",
+    keywords: ["RN Upgrade Doctor", "React Native upgrade", "React Native upgrade checker", "upgrade React Native version", "Expo SDK upgrade", "React Native Gradle Kotlin upgrade", "React Native Upgrade Helper alternative"],
+    description:
+      "Most React Native upgrades go the same way: bump the version, build, and discover one error at a time that Gradle, the Android Gradle Plugin, Kotlin, the NDK, Xcode or CocoaPods needs to change too. RN Upgrade Doctor reads your project first and reports what the target release requires against what you have. Findings are deterministic and cite their source, and where the data does not cover something it says so instead of guessing. It runs locally and sends nothing anywhere. The RN Upgrade Doctor web app adds compatibility checks for 150 tracked libraries.",
+    highlights: [
+      "Covers React Native 0.60 to 0.87 and Expo SDK 45 to 57",
+      "Checks Node.js and React, Gradle, AGP, Kotlin, NDK, compileSdk and targetSdk, Xcode, iOS deployment target and CocoaPods",
+      "Every finding cites its evidence and the date it was verified",
+      "Runs fully locally; nothing about your project is uploaded",
+      "CI-ready: --json output, --ci mode and stable exit codes (0, 1, 2)",
+      "Config file to ignore rules or change severities; never executes project code",
+      "Web app adds compatibility checks for 150 tracked libraries",
+    ],
+    tags: ["React Native", "Expo", "CLI", "TypeScript", "Android", "iOS"],
+    install: "npx @mobilixir/rn-upgrade-doctor analyze --target 0.87 --path ./my-app",
+    links: [
+      { label: "View on npm", href: "https://www.npmjs.com/package/@mobilixir/rn-upgrade-doctor" },
+      { label: "Open the web app", href: "https://rnupgradedoctor.dev" },
+    ],
+    services: ["mobile-app-development", "technical-consulting"],
+    benefits: [
+      { title: "Plan before you start", text: "See every toolchain change the target release needs before you touch package.json, so you can estimate the upgrade honestly." },
+      { title: "Evidence, not guesses", text: "Each finding cites its source and verification date. Where the data does not cover something, the report says so." },
+      { title: "Safe for CI and private code", text: "Runs locally, never executes project code, and gives JSON output and stable exit codes for pipelines." },
+    ],
+    comparisons: [
+      {
+        against: "React Native Upgrade Helper",
+        rows: [
+          { aspect: "What it shows", them: "The diff between two React Native template versions", us: "What your project has against what the target release requires" },
+          { aspect: "Your toolchain", them: "Not checked against your project", us: "Node, React, Gradle, AGP, Kotlin, NDK, SDK levels, Xcode, deployment target and CocoaPods" },
+          { aspect: "Automation", them: "A website you read", us: "A CLI with --json output and exit codes" },
+          { aspect: "Best for", them: "Applying the template changes", us: "Knowing what to change before you begin; use both together" },
+        ],
+      },
+      {
+        against: "Bump the version and build",
+        rows: [
+          { aspect: "How problems appear", them: "One build error at a time", us: "The full list up front" },
+          { aspect: "Fix guidance", them: "Search each error yourself", us: "Remediation and the nearest confirmed version in every finding" },
+          { aspect: "Expo", them: "Trial and error per SDK", us: "SDK 45 to 57, from Expo's own bundled module data" },
+        ],
+      },
+    ],
   },
   {
     slug: "ios-app-privacy-generator",
@@ -476,6 +645,144 @@ export const PROJECTS: Project[] = [
       { label: "Open the tool", href: "https://ios-app-privacy.vercel.app" },
     ],
     services: ["mobile-security-hardening", "technical-consulting"],
+    benefits: [
+      { title: "Fewer rejections", text: "A complete PrivacyInfo.xcprivacy is one of the things Apple checks; generating it removes a common reason for a rejected build." },
+      { title: "Minutes, not an afternoon", text: "Answer questions about your app instead of hand-editing property-list XML." },
+      { title: "Free and in the browser", text: "Nothing to install and no account needed." },
+    ],
+    comparisons: [
+      {
+        against: "Writing the manifest by hand in Xcode",
+        rows: [
+          { aspect: "Format", them: "Hand-written property-list keys and nested arrays", us: "A form that produces the file" },
+          { aspect: "Required-reason APIs", them: "Look up each category and reason code in Apple's documentation", us: "Describe your usage and the tool writes the entries" },
+          { aspect: "Mistakes", them: "Found when App Store review rejects the build", us: "Caught while you fill in the form" },
+          { aspect: "Cost", them: "Your time", us: "Free" },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "phoenixir",
+    name: "Phoenixir",
+    kind: "Starter kit",
+    category: "Starter Kits",
+    summary:
+      "A modular Phoenix LiveView SaaS starter kit: accounts, organizations, billing, API, jobs, AI and a marketing site, ready on day one.",
+    keywords: ["Phoenixir", "Phoenix SaaS starter kit", "Phoenix LiveView boilerplate", "Elixir SaaS boilerplate", "phx.gen.auth alternative", "Phoenix multi-tenant SaaS", "Elixir starter kit"],
+    description:
+      "Every SaaS needs the same foundation before its first real feature: accounts, teams, billing, email, background jobs and a public site. Phoenixir is that foundation for Phoenix 1.8 and LiveView 1.2, built and tested so you can start on what makes your product different. It starts from the official phx.gen.auth generator and extends it, so the code feels familiar. A setup task generates a new app with only the modules you choose, and every module is documented, including how to remove it.",
+    highlights: [
+      "Generate your app with only the modules you need: mix phoenixir.setup",
+      "Accounts: magic links, passwords (Argon2), TOTP two-factor with recovery codes, GitHub and Google sign-in",
+      "Organizations with owner, admin and member roles, invitations, live presence and an audit log",
+      "Billing through Stripe, Polar or Lemon Squeezy, with seat-based plans",
+      "JSON API with personal access tokens, OpenAPI docs, cursor pagination and idempotency keys",
+      "AI with OpenAI, Anthropic and Google models, fallback, streaming and per-organization quotas",
+      "Oban background jobs, feature flags, waitlist mode, file uploads and an admin area",
+      "Marketing site, blog and SEO, English and Spanish, with Lighthouse budgets in CI",
+      "Test suite with a 95% coverage floor, plus Credo, Sobelow and Dialyzer in CI",
+    ],
+    tags: ["Elixir", "Phoenix", "LiveView", "PostgreSQL", "Oban", "Tailwind CSS"],
+    links: [{ label: "Ask about a license", href: "/contact" }],
+    services: ["web-app-development", "backend-and-api"],
+    benefits: [
+      { title: "Months of foundation, done", text: "Accounts, teams, billing, email, jobs and a public site are built and tested, so your first sprint goes on your product." },
+      { title: "Decisions written down", text: "Architecture choices are documented with the reasons, and every module has a guide, including how to remove it." },
+      { title: "Take only what you need", text: "The setup task generates an app with just the modules you pick." },
+      { title: "Current and checked", text: "Phoenix 1.8, LiveView 1.2, Elixir 1.20, Tailwind CSS v4 and daisyUI 5, with a 95% coverage floor in CI." },
+    ],
+    comparisons: [
+      {
+        against: "phx.gen.auth (Phoenix 1.8)",
+        rows: [
+          { aspect: "Registration, confirmation, magic links", them: "Yes", us: "Yes" },
+          { aspect: "Two-factor authentication", them: "No", us: "TOTP, recovery codes, replay protection" },
+          { aspect: "GitHub and Google sign-in", them: "No", us: "Yes, with PKCE and verified-email linking" },
+          { aspect: "Sessions per device", them: "No", us: "Listed with IP and browser; revoke one or all" },
+          { aspect: "Rate limits", them: "No", us: "Per IP and per account" },
+          { aspect: "Security audit log", them: "No", us: "Yes, visible to the user" },
+          { aspect: "Organizations and roles", them: "No", us: "Owner, admin and member, with invitations" },
+        ],
+      },
+      {
+        against: "Building the foundation from scratch",
+        rows: [
+          { aspect: "Billing", them: "Provider integration, webhook verification, idempotency, seats, dunning", us: "Stripe, Polar and Lemon Squeezy behind one behaviour" },
+          { aspect: "Background jobs", them: "Queue design, retries, cron and monitoring", us: "Oban with Oban Web" },
+          { aspect: "Marketing and SEO", them: "Landing pages, blog, sitemaps and structured data", us: "Two landing designs, blog, sitemaps and JSON-LD" },
+          { aspect: "Tests", them: "Written as you go, if there is time", us: "A suite with a 95% coverage floor, Credo, Sobelow and Dialyzer" },
+          { aspect: "Ownership", them: "Every line is yours", us: "Every line is yours too: full source, change anything" },
+        ],
+      },
+    ],
+    effort: [
+      { task: "Auth on top of phx.gen.auth: 2FA, OAuth, device sessions, rate limits, audit log", hours: { min: 50, max: 90 } },
+      { task: "Organizations, roles, invitations and tenant isolation", hours: { min: 40, max: 80 } },
+      { task: "Billing with three providers, webhooks and seats", hours: { min: 60, max: 120 } },
+      { task: "JSON API with tokens and OpenAPI docs", hours: { min: 25, max: 50 } },
+      { task: "Background jobs, admin area, feature flags and waitlist", hours: { min: 30, max: 60 } },
+      { task: "File uploads with image processing", hours: { min: 15, max: 30 } },
+      { task: "AI with provider fallback and usage quotas", hours: { min: 20, max: 40 } },
+      { task: "Email templates, previews and a second language", hours: { min: 20, max: 40 } },
+      { task: "Marketing site, blog and SEO", hours: { min: 30, max: 60 } },
+      { task: "CI quality gates", hours: { min: 10, max: 20 } },
+    ],
+  },
+  {
+    slug: "typixir",
+    name: "Typixir",
+    kind: "Starter kit",
+    category: "Starter Kits",
+    summary:
+      "A modular TypeScript SaaS starter kit: a Turborepo monorepo with a Next.js web app, a NestJS API and a NestJS worker.",
+    keywords: ["Typixir", "Next.js SaaS starter kit", "NestJS boilerplate", "Next.js NestJS monorepo", "TypeScript SaaS boilerplate", "Turborepo starter kit", "Next.js multi-tenant SaaS"],
+    description:
+      "Typixir is the TypeScript sibling of Phoenixir: the usual SaaS foundations, already built, in a Turborepo monorepo with a Next.js 16 web app, a NestJS 12 API on Fastify and a separate NestJS worker. Because the API is its own service with an OpenAPI document, mobile apps and third parties can call it too. A setup CLI generates your app with the modules, providers, locales and deploy target you pick, and an upgrade command brings in later kit releases.",
+    highlights: [
+      "Generate your app with only the modules you need: pnpm create-typixir",
+      "Next.js 16 web app, NestJS 12 API and worker, managed with pnpm and Turborepo",
+      "Accounts with Better Auth: email and password, magic links, TOTP two-factor, GitHub and Google",
+      "Organizations with roles, invitations and an audit log, isolated with PostgreSQL row-level security",
+      "Billing through Stripe, Polar or Lemon Squeezy: seats, trials, dunning emails and refunds",
+      "BullMQ jobs in a separate worker, Socket.IO real time with presence",
+      "AI SDK streaming with model fallback, tool calling and per-organization spend limits",
+      "Blog, docs, sitemap, hreflang and JSON-LD for SEO",
+      "Quality gates: Biome, tsc, Vitest with Testcontainers, Playwright with axe, Knip and turbo boundaries",
+    ],
+    tags: ["TypeScript", "Next.js", "NestJS", "PostgreSQL", "Turborepo", "Drizzle"],
+    links: [{ label: "Ask about a license", href: "/contact" }],
+    services: ["web-app-development", "backend-and-api"],
+    benefits: [
+      { title: "Months of foundation, done", text: "Accounts, organizations, billing, jobs and real time are built and tested, so your first sprint goes on your product." },
+      { title: "An API mobile apps can use", text: "The NestJS API is its own service with an OpenAPI document, so your React Native app can share it with the web." },
+      { title: "Take only what you need", text: "The setup CLI generates an app with the modules, providers, locales and deploy target you pick, and can upgrade it later." },
+      { title: "Guard rails included", text: "Biome, tsc, Vitest, Playwright with axe, Knip and turbo boundaries run on every change." },
+    ],
+    comparisons: [
+      {
+        against: "Building the foundation from scratch",
+        rows: [
+          { aspect: "Accounts", them: "Choosing a library, wiring sessions and cookies across two apps, recovery codes", us: "Better Auth with magic links, TOTP and OAuth, already wired" },
+          { aspect: "Organizations", them: "Designing tenancy and proving no query leaks across tenants", us: "Roles, invitations and an audit log, isolated with row-level security" },
+          { aspect: "Billing", them: "Webhook verification, idempotency, plan changes, each provider's events", us: "Stripe, Polar or Lemon Squeezy behind one interface" },
+          { aspect: "Jobs", them: "A queue, retry policy, schedules and a process that can fail safely", us: "BullMQ in a separate worker" },
+          { aspect: "Quality gates", them: "Setting up and maintaining the same checks", us: "Already running" },
+          { aspect: "Ownership", them: "Every line is yours", us: "Every line is yours too: full source, change anything" },
+        ],
+      },
+    ],
+    effort: [
+      { task: "Monorepo, tooling and CI quality gates", hours: { min: 20, max: 40 } },
+      { task: "Accounts: passwords, magic links, 2FA and OAuth", hours: { min: 50, max: 90 } },
+      { task: "Organizations, roles, invitations and row-level security", hours: { min: 40, max: 80 } },
+      { task: "Billing with three providers: seats, trials and dunning", hours: { min: 60, max: 120 } },
+      { task: "Worker with jobs and schedules", hours: { min: 20, max: 40 } },
+      { task: "Real time with presence", hours: { min: 15, max: 30 } },
+      { task: "AI streaming with model fallback and spend limits", hours: { min: 20, max: 40 } },
+      { task: "Email templates and translations", hours: { min: 20, max: 40 } },
+      { task: "Blog, docs and SEO", hours: { min: 30, max: 60 } },
+    ],
   },
   {
     slug: "redux-toolkit-saga-typescript-boilerplate",
@@ -500,6 +807,29 @@ export const PROJECTS: Project[] = [
       },
     ],
     services: ["mobile-app-development"],
+    benefits: [
+      { title: "Same foundation on every project", text: "Every app starts with the same store, saga and folder layout, so moving between projects costs nothing." },
+      { title: "Typed from the first line", text: "State, hooks and sagas are typed in TypeScript, so mistakes show up in the editor, not at runtime." },
+      { title: "Start on features", text: "The setup hour goes to the first screen instead of copying configuration from an old repo." },
+    ],
+    comparisons: [
+      {
+        against: "Setting it up by hand",
+        rows: [
+          { aspect: "Time", them: "Hours of configuration, every project", us: "A command in VS Code" },
+          { aspect: "Consistency", them: "Drifts between projects and developers", us: "The same structure every time" },
+          { aspect: "Types", them: "Easy to leave loose under deadline pressure", us: "Typed from the start" },
+          { aspect: "Mistakes", them: "Missed middleware or root-saga wiring found at runtime", us: "Generated and wired together" },
+        ],
+      },
+    ],
+    effort: [
+      { task: "Store configuration with Redux Toolkit", hours: { min: 1, max: 2 } },
+      { task: "Saga middleware and root saga", hours: { min: 1, max: 2 } },
+      { task: "First slice and saga wired together", hours: { min: 1, max: 2 } },
+      { task: "Typed hooks and RootState types", hours: { min: 1, max: 2 } },
+      { task: "Folder structure and conventions", hours: { min: 1, max: 2 } },
+    ],
   },
   {
     slug: "redux-toolkit-saga-boilerplate",
@@ -524,17 +854,100 @@ export const PROJECTS: Project[] = [
       },
     ],
     services: ["mobile-app-development"],
+    benefits: [
+      { title: "Same foundation on every project", text: "Every app starts with the same store, saga and folder layout, so moving between projects costs nothing." },
+      { title: "For JavaScript codebases", text: "The same setup as the TypeScript edition, for teams that have not moved to TypeScript." },
+      { title: "Start on features", text: "The setup hour goes to the first screen instead of copying configuration from an old repo." },
+    ],
+    comparisons: [
+      {
+        against: "Setting it up by hand",
+        rows: [
+          { aspect: "Time", them: "Hours of configuration, every project", us: "A command in VS Code" },
+          { aspect: "Consistency", them: "Drifts between projects and developers", us: "The same structure every time" },
+          { aspect: "Mistakes", them: "Missed middleware or root-saga wiring found at runtime", us: "Generated and wired together" },
+        ],
+      },
+    ],
+    effort: [
+      { task: "Store configuration with Redux Toolkit", hours: { min: 1, max: 2 } },
+      { task: "Saga middleware and root saga", hours: { min: 1, max: 2 } },
+      { task: "First slice and saga wired together", hours: { min: 1, max: 2 } },
+      { task: "Folder structure and conventions", hours: { min: 1, max: 2 } },
+    ],
   },
 ];
 
 export const PROJECT_CATEGORIES: ProjectCategory[] = [
   "Mobile Security",
   "App Store Compliance",
+  "Starter Kits",
   "Developer Tooling",
   "Mobile",
+];
+
+// ─── Boilerplates ────────────────────────────────────────────────────────────
+
+export interface BoilerplateEntry {
+  /** Slug of a project that has an effort estimate. */
+  slug: string;
+  platform: "Web & backend" | "Mobile";
+}
+
+/** The ready-made foundations, in the order /boilerplates and the home page show them. */
+export const BOILERPLATES: BoilerplateEntry[] = [
+  { slug: "typixir", platform: "Web & backend" },
+  { slug: "phoenixir", platform: "Web & backend" },
+  { slug: "redux-toolkit-saga-typescript-boilerplate", platform: "Mobile" },
+  { slug: "redux-toolkit-saga-boilerplate", platform: "Mobile" },
+];
+
+export const BOILERPLATE_VS_SCRATCH: Comparison = {
+  against: "Starting from scratch",
+  rows: [
+    { aspect: "First week", them: "Auth, project structure, CI and configuration", us: "Your first product feature" },
+    { aspect: "Security basics", them: "Designed, built and reviewed by you, under deadline", us: "Already built, tested and documented" },
+    { aspect: "Tests and CI", them: "Added later, if there is time", us: "A suite and quality gates from the first commit" },
+    { aspect: "Consistency", them: "Each project and developer does it differently", us: "The same structure on every project" },
+    { aspect: "Decisions", them: "Made one at a time as problems appear", us: "Made up front and written down with the reasons" },
+    { aspect: "Ownership", them: "Every line is yours", us: "Every line is yours too: full source code to change or remove" },
+  ],
+};
+
+export const SCRATCH_IS_BETTER_WHEN: string[] = [
+  "Your product is the infrastructure: if auth or billing is what you sell, own every line from the first commit.",
+  "Your team works in a different stack. Adapting a kit to another language or database costs more than it saves.",
+  "The scope is a landing page and a form. That does not need a separate API, worker and billing.",
+  "Learning every layer yourself is the goal.",
+];
+
+export const BOILERPLATE_FAQS: { q: string; a: string }[] = [
+  {
+    q: "Do I own the code?",
+    a: "Yes. You get the full source code and can change or remove anything. The starter kits are licensed per developer or per team; the Redux Toolkit Saga extensions are free on the VS Code Marketplace.",
+  },
+  {
+    q: "Can I remove the parts I do not need?",
+    a: "Yes. Phoenixir and Typixir generate your app with only the modules you choose, and every module's guide explains how to remove it later.",
+  },
+  {
+    q: "Can you build our product on one of these?",
+    a: "Yes. That is the fastest way to work with us: we start from a tested foundation and spend your budget on the features that make your product different.",
+  },
+  {
+    q: "Where do the hour estimates come from?",
+    a: "They are our planning estimates for an experienced engineer building the same pieces from scratch. They are not measured results, and your numbers will depend on scope.",
+  },
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 export const getService = (slug: string) => SERVICES.find((s) => s.slug === slug);
 export const getProject = (slug: string) => PROJECTS.find((p) => p.slug === slug);
+
+/** BOILERPLATES resolved to their projects. The content test guarantees every slug resolves. */
+export const getBoilerplates = () =>
+  BOILERPLATES.flatMap((b) => {
+    const project = getProject(b.slug);
+    return project ? [{ ...b, project }] : [];
+  });
