@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { TechMarquee } from "@/components/sections/TechMarquee";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { StatsStrip } from "@/components/sections/StatsStrip";
+import { BoilerplatesSection } from "@/components/sections/BoilerplatesSection";
 import { FeaturedWorkSection } from "@/components/sections/FeaturedWorkSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { LatestPostsSection } from "@/components/sections/LatestPostsSection";
@@ -14,6 +15,7 @@ export default function HomePage() {
       <TechMarquee />
       <ServicesSection />
       <StatsStrip />
+      <BoilerplatesSection />
       <FeaturedWorkSection />
       <ProcessSection />
       <LatestPostsSection />

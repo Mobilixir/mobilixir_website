@@ -121,6 +121,7 @@ export const SITE = {
 export const NAV_ITEMS: NavItem[] = [
   { href: "/services", label: "Services" },
   { href: "/work", label: "Work" },
+  { href: "/boilerplates", label: "Boilerplates" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
 ];
