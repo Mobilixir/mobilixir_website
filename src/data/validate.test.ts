@@ -70,6 +70,34 @@ test("project without highlights is reported", () => {
   assert.deepEqual(check([project({ highlights: [] })]), ['project "lib": needs at least one highlight']);
 });
 
+test("project with valid benefits, comparison and effort reports no problems", () => {
+  const p = project({
+    benefits: [{ title: "Fast", text: "Starts quickly." }],
+    comparisons: [{ against: "Manual setup", rows: [{ aspect: "Time", them: "Hours", us: "Minutes" }] }],
+    effort: [{ task: "Store", hours: { min: 1, max: 2 } }],
+  });
+  assert.deepEqual(check([p]), []);
+});
+
+test("invalid effort range is reported with its task", () => {
+  const p = project({ effort: [{ task: "Store", hours: { min: 3, max: 1 } }] });
+  assert.deepEqual(check([p]), ['project "lib": effort "Store" has an invalid hour range']);
+});
+
+test("empty effort list is reported", () => {
+  assert.deepEqual(check([project({ effort: [] })]), ['project "lib": effort must list at least one task']);
+});
+
+test("comparison without rows is reported", () => {
+  const p = project({ comparisons: [{ against: "Manual setup", rows: [] }] });
+  assert.deepEqual(check([p]), ['project "lib": comparison "Manual setup" has no rows']);
+});
+
+test("benefit with empty text is reported", () => {
+  const p = project({ benefits: [{ title: "Fast", text: " " }] });
+  assert.deepEqual(check([p]), ['project "lib": benefit "Fast" needs a title and text']);
+});
+
 test("category missing from the filter list is reported", () => {
   assert.deepEqual(
     findContentProblems({ projects: [project()], services: [service("mobile")], categories: ["Mobile Security"] }),
