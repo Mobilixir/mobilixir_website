@@ -53,6 +53,7 @@ export type ProjectCategory =
   | "Mobile Security"
   | "Developer Tooling"
   | "App Store Compliance"
+  | "Starter Kits"
   | "Mobile";
 
 export interface ProjectLink {
@@ -63,7 +64,7 @@ export interface ProjectLink {
 export interface Project {
   slug: string;
   name: string;
-  kind: "npm package" | "CLI tool" | "VS Code extension" | "Web tool";
+  kind: "npm package" | "CLI tool" | "VS Code extension" | "Web tool" | "Starter kit";
   category: ProjectCategory;
   summary: string;
   keywords: string[];
@@ -533,6 +534,56 @@ export const PROJECTS: Project[] = [
     services: ["mobile-security-hardening", "technical-consulting"],
   },
   {
+    slug: "phoenixir",
+    name: "Phoenixir",
+    kind: "Starter kit",
+    category: "Starter Kits",
+    summary:
+      "A modular Phoenix LiveView SaaS starter kit: accounts, organizations, billing, API, jobs, AI and a marketing site, ready on day one.",
+    keywords: ["Phoenixir", "Phoenix SaaS starter kit", "Phoenix LiveView boilerplate", "Elixir SaaS boilerplate", "phx.gen.auth alternative", "Phoenix multi-tenant SaaS", "Elixir starter kit"],
+    description:
+      "Every SaaS needs the same foundation before its first real feature: accounts, teams, billing, email, background jobs and a public site. Phoenixir is that foundation for Phoenix 1.8 and LiveView 1.2, built and tested so you can start on what makes your product different. It starts from the official phx.gen.auth generator and extends it, so the code feels familiar. A setup task generates a new app with only the modules you choose, and every module is documented, including how to remove it.",
+    highlights: [
+      "Generate your app with only the modules you need: mix phoenixir.setup",
+      "Accounts: magic links, passwords (Argon2), TOTP two-factor with recovery codes, GitHub and Google sign-in",
+      "Organizations with owner, admin and member roles, invitations, live presence and an audit log",
+      "Billing through Stripe, Polar or Lemon Squeezy, with seat-based plans",
+      "JSON API with personal access tokens, OpenAPI docs, cursor pagination and idempotency keys",
+      "AI with OpenAI, Anthropic and Google models, fallback, streaming and per-organization quotas",
+      "Oban background jobs, feature flags, waitlist mode, file uploads and an admin area",
+      "Marketing site, blog and SEO, English and Spanish, with Lighthouse budgets in CI",
+      "Test suite with a 95% coverage floor, plus Credo, Sobelow and Dialyzer in CI",
+    ],
+    tags: ["Elixir", "Phoenix", "LiveView", "PostgreSQL", "Oban", "Tailwind CSS"],
+    links: [{ label: "Ask about a license", href: "/contact" }],
+    services: ["web-app-development", "backend-and-api"],
+  },
+  {
+    slug: "typixir",
+    name: "Typixir",
+    kind: "Starter kit",
+    category: "Starter Kits",
+    summary:
+      "A modular TypeScript SaaS starter kit: a Turborepo monorepo with a Next.js web app, a NestJS API and a NestJS worker.",
+    keywords: ["Typixir", "Next.js SaaS starter kit", "NestJS boilerplate", "Next.js NestJS monorepo", "TypeScript SaaS boilerplate", "Turborepo starter kit", "Next.js multi-tenant SaaS"],
+    description:
+      "Typixir is the TypeScript sibling of Phoenixir: the usual SaaS foundations, already built, in a Turborepo monorepo with a Next.js 16 web app, a NestJS 12 API on Fastify and a separate NestJS worker. Because the API is its own service with an OpenAPI document, mobile apps and third parties can call it too. A setup CLI generates your app with the modules, providers, locales and deploy target you pick, and an upgrade command brings in later kit releases.",
+    highlights: [
+      "Generate your app with only the modules you need: pnpm create-typixir",
+      "Next.js 16 web app, NestJS 12 API and worker, managed with pnpm and Turborepo",
+      "Accounts with Better Auth: email and password, magic links, TOTP two-factor, GitHub and Google",
+      "Organizations with roles, invitations and an audit log, isolated with PostgreSQL row-level security",
+      "Billing through Stripe, Polar or Lemon Squeezy: seats, trials, dunning emails and refunds",
+      "BullMQ jobs in a separate worker, Socket.IO real time with presence",
+      "AI SDK streaming with model fallback, tool calling and per-organization spend limits",
+      "Blog, docs, sitemap, hreflang and JSON-LD for SEO",
+      "Quality gates: Biome, tsc, Vitest with Testcontainers, Playwright with axe, Knip and turbo boundaries",
+    ],
+    tags: ["TypeScript", "Next.js", "NestJS", "PostgreSQL", "Turborepo", "Drizzle"],
+    links: [{ label: "Ask about a license", href: "/contact" }],
+    services: ["web-app-development", "backend-and-api"],
+  },
+  {
     slug: "redux-toolkit-saga-typescript-boilerplate",
     name: "Redux Toolkit Saga TypeScript Boilerplate",
     kind: "VS Code extension",
@@ -585,6 +636,7 @@ export const PROJECTS: Project[] = [
 export const PROJECT_CATEGORIES: ProjectCategory[] = [
   "Mobile Security",
   "App Store Compliance",
+  "Starter Kits",
   "Developer Tooling",
   "Mobile",
 ];
